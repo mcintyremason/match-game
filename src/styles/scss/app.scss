@@ -3,3 +3,7 @@
 h1 {
   color: $primary-color;
 }
+
+.card.selected {
+	border: 3px solid red;
+}
