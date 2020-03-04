@@ -7,7 +7,7 @@ import HomePage from '.';
 const wrapper = shallow(<HomePage />);
 
 describe('HomePage Component', () => {
-  it('renders h1', () => {
-    expect(wrapper.find('h1').text()).to.equal('Hello World');
+  it('renders Matching Game header', () => {
+    expect(wrapper.find({ variant: 'h2' }).text()).to.equal('Matching Game');
   });
 });

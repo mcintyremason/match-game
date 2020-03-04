@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import {
   Grid
 } from '@material-ui/core';
@@ -27,8 +26,6 @@ class Board extends React.Component<BoardProps, BoardState> {
   }
 
   selectMatchCard = (card: MatchCardType) => {
-    console.log(card);
-
     this.setState({
       selectedCard: card.id
     });

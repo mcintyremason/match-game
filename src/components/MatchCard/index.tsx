@@ -32,7 +32,6 @@ class MatchCard extends React.Component<MatchCardType, MatchCardType> {
     return (
       <Card className={`card ${selected ? 'selected' : ''}`} {... { onClick }}>
         <CardContent>
-          {console.log(selected)}
           <Typography>
             {value}
           </Typography>

@@ -1,4 +1,7 @@
 import * as React from 'react';
+import {
+  Grid, Typography
+} from '@material-ui/core';
 
 import Board from '../Board';
 import { MatchCardType } from '../MatchCard';
@@ -52,7 +55,14 @@ class HomePage extends React.Component<{}, {}> {
 
   render() {
     return(
-      <Board {... {cards}}></Board>
+      <Grid>
+        <Grid item xs={12}>
+          <Typography variant='h2'>Matching Game</Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Board {... {cards}}></Board>
+        </Grid>
+      </Grid>
     );
   }
 }
