@@ -6,53 +6,58 @@ import {
 import Board from '../Board';
 import { MatchCardProps } from '../MatchCard';
 
+import woody from '../../assets/images/woody.jpg';
+import buzz from '../../assets/images/buzz-lightyear.jpg';
+import boPeep from '../../assets/images/bo-peep.jpg';
+import forky from '../../assets/images/forky.jpg';
+
 const cards: Array<MatchCardProps> = [{
     id: '1',
     title: 'Woody',
     order: Math.floor(Math.random() * 4),
-    imgSrc: 'https://www.demilked.com/magazine/wp-content/uploads/2019/07/5d2d78cba67fc-toy-story-4-amazing-details-pixar-disney-18-5d1c6987c1606__700.jpg'
+    imgSrc: woody
   },
   {
     id: '2',
     title: 'Buzz Lightyear',
     order: Math.floor(Math.random() * 4),
-    imgSrc: 'https://2.bp.blogspot.com/-wqciEtwCvyw/XOzIhYeM9fI/AAAAAAAADT8/HjFjasP7J-MSsGYbc1QVMRIE-QyVFKSVgCKgBGAs/w0/toy-story-4-buzz-lightyear-uhdpaper.com-4K-7.jpg'
+    imgSrc: buzz
   },
   {
     id: '3',
     title: 'Lil Bo Peep',
     order: Math.floor(Math.random() * 4),
-    imgSrc: 'https://www.shrinktank.com/wp-content/uploads/2019/06/BoPeepFeatureImg.jpg'
+    imgSrc: boPeep
   },
   {
     id: '4',
     title: 'Forky',
     order: Math.floor(Math.random() * 4),
-    imgSrc: 'https://insidethemagic-119e2.kxcdn.com/wp-content/uploads/2020/01/FORKY1.jpg'
+    imgSrc: forky
   },
   {
     id: '5',
     title: 'Woody',
     order: Math.floor(Math.random() * 4),
-    imgSrc: 'https://www.demilked.com/magazine/wp-content/uploads/2019/07/5d2d78cba67fc-toy-story-4-amazing-details-pixar-disney-18-5d1c6987c1606__700.jpg'
+    imgSrc: woody
   },
   {
     id: '6',
     title: 'Buzz Lightyear',
     order: Math.floor(Math.random() * 4),
-    imgSrc: 'https://2.bp.blogspot.com/-wqciEtwCvyw/XOzIhYeM9fI/AAAAAAAADT8/HjFjasP7J-MSsGYbc1QVMRIE-QyVFKSVgCKgBGAs/w0/toy-story-4-buzz-lightyear-uhdpaper.com-4K-7.jpg'
+    imgSrc: buzz
   },
   {
     id: '7',
     title: 'Lil Bo Peep',
     order: Math.floor(Math.random() * 4),
-    imgSrc: 'https://www.shrinktank.com/wp-content/uploads/2019/06/BoPeepFeatureImg.jpg'
+    imgSrc: boPeep
   },
   {
     id: '8',
     title: 'Forky',
     order: Math.floor(Math.random() * 4),
-    imgSrc: 'https://insidethemagic-119e2.kxcdn.com/wp-content/uploads/2020/01/FORKY1.jpg'
+    imgSrc: forky
   }
 ];
 

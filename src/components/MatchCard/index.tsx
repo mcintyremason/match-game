@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import { Card, CardMedia, Container } from '@material-ui/core';
 
+import cardBackground from '../../assets/images/card-background.jpg';
+
 export type MatchCardProps = {
   id: string,
   title: string,
@@ -21,7 +23,7 @@ class MatchCard extends React.Component<MatchCardProps, MatchCardState> {
 
     this.state = {
       ...props,
-      backImgSrc: 'https://images.techhive.com/images/article/2014/04/geometric-seamless-pattern-123822240-100264965-large3x2.jpg'
+      backImgSrc: cardBackground
     };
   }
 
