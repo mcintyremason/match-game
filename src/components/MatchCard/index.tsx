@@ -6,9 +6,10 @@ import cardBackground from '../../assets/images/card-background.jpg';
 
 export type MatchCardProps = {
   id: string,
-  title: string,
+  value: string,
   order: number,
   selected?: boolean,
+  matched?: boolean,
   imgSrc?: string,
   onClick?: any
 };
@@ -35,13 +36,14 @@ class MatchCard extends React.Component<MatchCardProps, MatchCardState> {
     const {
       onClick,
       selected,
+      matched,
       imgSrc
     } = this.props;
 
     return (
       <Container className='match-card-container'>
-        <Card className={`match-card ${selected ? 'selected' : ''}`} {... { onClick }}>
-          {selected
+        <Card className={`match-card ${selected ? 'selected' : ''} ${matched ? 'matched' : ''}`} {... { onClick }}>
+          {selected || matched
           ? <CardMedia
             className='back'
             image={imgSrc}

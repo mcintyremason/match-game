@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Grid
+  Grid, Typography
 } from '@material-ui/core';
 
 import MatchCard, { MatchCardProps } from '../MatchCard';
@@ -11,7 +11,9 @@ type BoardProps = {
 
 type BoardState = {
   selectedCardFirst?: MatchCardProps | null,
-  selectedCardSecond?: MatchCardProps | null
+  selectedCardSecond?: MatchCardProps | null,
+  matchedCards: Array<string>,
+  gameOver: boolean
 } & BoardProps;
 
 class Board extends React.Component<BoardProps, BoardState> {
@@ -21,13 +23,33 @@ class Board extends React.Component<BoardProps, BoardState> {
     this.state = {
       ...props,
       selectedCardFirst: null,
-      selectedCardSecond: null
+      selectedCardSecond: null,
+      matchedCards: [],
+      gameOver: false
     };
 
     this.selectMatchCard = this.selectMatchCard.bind(this);
   }
 
-  selectMatchCard = (card: MatchCardProps) => {
+  checkForWin = ({ card }: { card: MatchCardProps }) => {
+    const {
+      cards,
+      selectedCardFirst,
+      matchedCards
+    } = this.state;
+
+    if (selectedCardFirst && selectedCardFirst.value === card.value) {
+      matchedCards.push(card.value);
+
+      this.setState({
+        selectedCardFirst: null,
+        selectedCardSecond: null,
+        gameOver: (matchedCards.length === (cards.length / 2))
+      });
+    }
+  }
+
+  selectMatchCard = ({ card }: { card: MatchCardProps }) => {
     const {
       selectedCardFirst,
       selectedCardSecond
@@ -61,28 +83,43 @@ class Board extends React.Component<BoardProps, BoardState> {
                 ? selectedCardSecond
                 : null
       });
+
+      this.checkForWin({ card });
     }
   }
 
   render() {
-    const { cards, selectedCardFirst, selectedCardSecond } = this.state;
+    const {
+      cards,
+      selectedCardFirst,
+      selectedCardSecond,
+      matchedCards,
+      gameOver
+    } = this.state;
 
-    return (<Grid container spacing={3}>
-      {cards
+    return (gameOver
+      ? (<Grid
+        container
+        direction='column'
+        justify='center'
+        alignItems='center'
+      >
+        <Typography variant='h1'>You Win!</Typography>
+      </Grid>)
+      : <Grid container spacing={3}>
+        {cards
         .sort((a, b) => a.order - b.order)
         .map(card => (
         <Grid item xs={6} sm={3} key={card.id}>
           <MatchCard {... {
               ...card,
-              selected: selectedCardFirst === card || selectedCardSecond === card
+              selected: selectedCardFirst === card || selectedCardSecond === card,
+              matched: matchedCards.find(x => x === card.value) ? true : false
             }}
-            onClick={() => this.selectMatchCard(card)}
+            onClick={() => this.selectMatchCard({ card })}
           />
-          {/* {console.log('selectedCardFirst: ', selectedCardFirst)}
-          {console.log('selectedCardSecond: ', selectedCardSecond)} */}
-        </Grid>
-      ))}
-    </Grid>);
+        </Grid>))}
+      </Grid>);
   }
 }
 

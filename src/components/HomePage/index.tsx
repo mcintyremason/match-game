@@ -13,56 +13,56 @@ import forky from '../../assets/images/forky.jpg';
 
 const cards: Array<MatchCardProps> = [{
     id: '1',
-    title: 'Woody',
+    value: 'Woody',
     order: Math.floor(Math.random() * 4),
     imgSrc: woody,
     selected: false
   },
   {
     id: '2',
-    title: 'Buzz Lightyear',
+    value: 'Buzz Lightyear',
     order: Math.floor(Math.random() * 4),
     imgSrc: buzz,
     selected: false
   },
   {
     id: '3',
-    title: 'Lil Bo Peep',
+    value: 'Lil Bo Peep',
     order: Math.floor(Math.random() * 4),
     imgSrc: boPeep,
     selected: false
   },
   {
     id: '4',
-    title: 'Forky',
+    value: 'Forky',
     order: Math.floor(Math.random() * 4),
     imgSrc: forky,
     selected: false
   },
   {
     id: '5',
-    title: 'Woody',
+    value: 'Woody',
     order: Math.floor(Math.random() * 4),
     imgSrc: woody,
     selected: false
   },
   {
     id: '6',
-    title: 'Buzz Lightyear',
+    value: 'Buzz Lightyear',
     order: Math.floor(Math.random() * 4),
     imgSrc: buzz,
     selected: false
   },
   {
     id: '7',
-    title: 'Lil Bo Peep',
+    value: 'Lil Bo Peep',
     order: Math.floor(Math.random() * 4),
     imgSrc: boPeep,
     selected: false
   },
   {
     id: '8',
-    title: 'Forky',
+    value: 'Forky',
     order: Math.floor(Math.random() * 4),
     imgSrc: forky,
     selected: false
@@ -77,7 +77,12 @@ class HomePage extends React.Component<{}, {}> {
   render() {
     return(
       <Grid>
-        <Grid item xs={12}>
+        <Grid
+          container
+          direction='column'
+          justify='center'
+          alignItems='center'
+        >
           <Typography variant='h2'>Matching Game</Typography>
         </Grid>
         <Grid item xs={12}>

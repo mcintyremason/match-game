@@ -26,6 +26,12 @@ h6 {
       transform: rotateY(0deg);
     }
 
+    &.matched {
+	    border: 3px solid $border-matched;
+      transform: rotateY(0deg);
+    }
+
+
     .front, .back {
       height: 100%;
       width: 100%;
