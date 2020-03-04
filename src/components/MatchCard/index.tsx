@@ -31,7 +31,6 @@ class MatchCard extends React.Component<MatchCardProps, MatchCardState> {
     } = this.state;
 
     const {
-      title,
       onClick,
       selected,
       imgSrc
@@ -44,12 +43,10 @@ class MatchCard extends React.Component<MatchCardProps, MatchCardState> {
           ? <CardMedia
             className='back'
             image={imgSrc}
-            title={title}
           />
           : <CardMedia
             className='front'
             image={backImgSrc}
-            title={title}
           />}
         </Card>
       </Container>
