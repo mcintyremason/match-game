@@ -21,7 +21,7 @@ class Board extends React.Component<BoardProps, BoardState> {
     this.state = {
       ...props,
       selectedCardFirst: null,
-      selectedCardSecond: null,
+      selectedCardSecond: null
     };
 
     this.selectMatchCard = this.selectMatchCard.bind(this);
