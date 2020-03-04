@@ -4,47 +4,55 @@ import {
 } from '@material-ui/core';
 
 import Board from '../Board';
-import { MatchCardType } from '../MatchCard';
+import { MatchCardProps } from '../MatchCard';
 
-const cards: Array<MatchCardType> = [{
+const cards: Array<MatchCardProps> = [{
     id: '1',
-    value: 'A',
-    order: Math.floor(Math.random() * 4)
+    title: 'Woody',
+    order: Math.floor(Math.random() * 4),
+    imgSrc: 'https://www.demilked.com/magazine/wp-content/uploads/2019/07/5d2d78cba67fc-toy-story-4-amazing-details-pixar-disney-18-5d1c6987c1606__700.jpg'
   },
   {
     id: '2',
-    value: 'B',
-    order: Math.floor(Math.random() * 4)
+    title: 'Buzz Lightyear',
+    order: Math.floor(Math.random() * 4),
+    imgSrc: 'https://2.bp.blogspot.com/-wqciEtwCvyw/XOzIhYeM9fI/AAAAAAAADT8/HjFjasP7J-MSsGYbc1QVMRIE-QyVFKSVgCKgBGAs/w0/toy-story-4-buzz-lightyear-uhdpaper.com-4K-7.jpg'
   },
   {
     id: '3',
-    value: 'C',
-    order: Math.floor(Math.random() * 4)
+    title: 'Lil Bo Peep',
+    order: Math.floor(Math.random() * 4),
+    imgSrc: 'https://www.shrinktank.com/wp-content/uploads/2019/06/BoPeepFeatureImg.jpg'
   },
   {
     id: '4',
-    value: 'D',
-    order: Math.floor(Math.random() * 4)
+    title: 'Forky',
+    order: Math.floor(Math.random() * 4),
+    imgSrc: 'https://insidethemagic-119e2.kxcdn.com/wp-content/uploads/2020/01/FORKY1.jpg'
   },
   {
     id: '5',
-    value: 'A',
-    order: Math.floor(Math.random() * 4)
+    title: 'Woody',
+    order: Math.floor(Math.random() * 4),
+    imgSrc: 'https://www.demilked.com/magazine/wp-content/uploads/2019/07/5d2d78cba67fc-toy-story-4-amazing-details-pixar-disney-18-5d1c6987c1606__700.jpg'
   },
   {
     id: '6',
-    value: 'B',
-    order: Math.floor(Math.random() * 4)
+    title: 'Buzz Lightyear',
+    order: Math.floor(Math.random() * 4),
+    imgSrc: 'https://2.bp.blogspot.com/-wqciEtwCvyw/XOzIhYeM9fI/AAAAAAAADT8/HjFjasP7J-MSsGYbc1QVMRIE-QyVFKSVgCKgBGAs/w0/toy-story-4-buzz-lightyear-uhdpaper.com-4K-7.jpg'
   },
   {
     id: '7',
-    value: 'C',
-    order: Math.floor(Math.random() * 4)
+    title: 'Lil Bo Peep',
+    order: Math.floor(Math.random() * 4),
+    imgSrc: 'https://www.shrinktank.com/wp-content/uploads/2019/06/BoPeepFeatureImg.jpg'
   },
   {
     id: '8',
-    value: 'D',
-    order: Math.floor(Math.random() * 4)
+    title: 'Forky',
+    order: Math.floor(Math.random() * 4),
+    imgSrc: 'https://insidethemagic-119e2.kxcdn.com/wp-content/uploads/2020/01/FORKY1.jpg'
   }
 ];
 

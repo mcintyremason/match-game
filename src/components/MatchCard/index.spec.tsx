@@ -6,14 +6,14 @@ import MatchCard from '.';
 
 const cardProps = {
   id: '1',
-  value: 'A',
+  title: 'Woody',
   order: Math.floor(Math.random() * 4)
 };
 
 const wrapper = shallow(<MatchCard {...cardProps } />);
 
 describe('MatchCard Component', () => {
-  it('The MatchCard with a value', () => {
-    expect(wrapper.find('.card').text()).to.equal(cardProps.value);
+  it('The MatchCard with a title', () => {
+    expect(wrapper.find('.match-card').text()).to.equal(cardProps.title);
   });
 });

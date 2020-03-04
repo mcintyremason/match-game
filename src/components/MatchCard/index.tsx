@@ -1,42 +1,58 @@
 import * as React from 'react';
 
-import { Card, CardContent, Typography } from '@material-ui/core';
+import { Card, CardMedia, Container } from '@material-ui/core';
 
-export type MatchCardType = {
+export type MatchCardProps = {
   id: string,
-  value: string,
+  title: string,
   order: number,
   selected?: boolean,
+  imgSrc?: string,
   onClick?: any
 };
 
-class MatchCard extends React.Component<MatchCardType, MatchCardType> {
+type MatchCardState = {
+  backImgSrc?: string
+};
+
+class MatchCard extends React.Component<MatchCardProps, MatchCardState> {
   constructor(props: any) {
     super(props);
 
     this.state = {
-      ...props
+      ...props,
+      backImgSrc: 'https://images.techhive.com/images/article/2014/04/geometric-seamless-pattern-123822240-100264965-large3x2.jpg'
     };
   }
 
   render() {
     const {
-      selected
-    } = this.props;
-
-    const {
-      value,
-      onClick
+      backImgSrc
     } = this.state;
 
+    const {
+      title,
+      onClick,
+      selected,
+      imgSrc
+    } = this.props;
+
     return (
-      <Card className={`card ${selected ? 'selected' : ''}`} {... { onClick }}>
-        <CardContent>
-          <Typography>
-            {value}
-          </Typography>
-        </CardContent>
-      </Card>
+      <Container className='match-card-container'>
+        <Card className={`match-card ${selected ? 'selected' : ''}`} {... { onClick }}>
+          {selected
+          ? <CardMedia
+            className='media back'
+            image={imgSrc}
+            title={title}
+          />
+          : <CardMedia
+            className='media front'
+            image={backImgSrc}
+            title={title}
+          />}
+        </Card>
+      </Container>
     );
   }
 }

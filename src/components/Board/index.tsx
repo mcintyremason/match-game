@@ -3,10 +3,10 @@ import {
   Grid
 } from '@material-ui/core';
 
-import MatchCard, { MatchCardType } from '../MatchCard';
+import MatchCard, { MatchCardProps } from '../MatchCard';
 
 type BoardProps = {
-  cards: Array<MatchCardType>
+  cards: Array<MatchCardProps>
 };
 
 type BoardState = {
@@ -25,9 +25,13 @@ class Board extends React.Component<BoardProps, BoardState> {
     this.selectMatchCard = this.selectMatchCard.bind(this);
   }
 
-  selectMatchCard = (card: MatchCardType) => {
+  selectMatchCard = (card: MatchCardProps) => {
+    const { selectedCard } = this.state;
+
     this.setState({
-      selectedCard: card.id
+      selectedCard: (selectedCard && selectedCard === card.id)
+        ? ''
+        : card.id
     });
   }
 

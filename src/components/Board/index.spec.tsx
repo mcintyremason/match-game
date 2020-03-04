@@ -7,22 +7,22 @@ import Board from '.';
 
 const cards = [{
   id: '1',
-  value: 'A',
+  title: 'Woody',
   order: Math.floor(Math.random() * 4)
 },
 {
   id: '2',
-  value: 'B',
+  title: 'B',
   order: Math.floor(Math.random() * 4)
 },
 {
   id: '3',
-  value: 'C',
+  title: 'C',
   order: Math.floor(Math.random() * 4)
 },
 {
   id: '4',
-  value: 'D',
+  title: 'D',
   order: Math.floor(Math.random() * 4)
 }];
 
