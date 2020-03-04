@@ -14,15 +14,16 @@ h6 {
   perspective: 1000px;
   
   .match-card {
+    position: relative;
+    height: 200px;
     border: 3px solid $border-primary;
     transition: 0.5s;
     transform-style: preserve-3d;
-    position: relative;
-    height: 200px;
+    transform: rotateY(180deg);
     
     &.selected {
-      border: 3px solid $border-selected;
-      transform: rotateY(180deg) scaleX(-1);
+	    border: 3px solid $border-selected;
+      transform: rotateY(0deg);
     }
 
     .front, .back {
