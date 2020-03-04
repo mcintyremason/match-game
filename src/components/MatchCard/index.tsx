@@ -42,12 +42,12 @@ class MatchCard extends React.Component<MatchCardProps, MatchCardState> {
         <Card className={`match-card ${selected ? 'selected' : ''}`} {... { onClick }}>
           {selected
           ? <CardMedia
-            className='media back'
+            className='back'
             image={imgSrc}
             title={title}
           />
           : <CardMedia
-            className='media front'
+            className='front'
             image={backImgSrc}
             title={title}
           />}

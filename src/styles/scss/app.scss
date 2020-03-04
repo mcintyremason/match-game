@@ -12,34 +12,21 @@ h6 {
 /* entire container, keeps perspective */
 .match-card-container {
   perspective: 1000px;
-  height: 140px;
   
   .match-card {
     border: 3px solid $border-primary;
     transition: 0.5s;
     transform-style: preserve-3d;
     position: relative;
-    height: 140px;
+    height: 200px;
     
     &.selected {
       border: 3px solid $border-selected;
       transform: rotateY(180deg);
     }
 
-    .media {
-      height: 140px;
-    }
-
-    > div {
-      padding: 0;
-    }
-  
-    > div:last-child {
-      padding: 0;
-    }
-
     .front, .back {
-      height: 140px;
+      height: 100%;
       width: 100%;
       backface-visibility: hidden;
 
@@ -50,7 +37,6 @@ h6 {
 
     .front {
       z-index: 2;
-      /* for firefox 31 */
       transform: rotateY(0deg);
     }
   }
