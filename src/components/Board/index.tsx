@@ -10,7 +10,8 @@ type BoardProps = {
 };
 
 type BoardState = {
-  selectedCard?: string
+  selectedCardFirst?: MatchCardProps | null,
+  selectedCardSecond?: MatchCardProps | null
 } & BoardProps;
 
 class Board extends React.Component<BoardProps, BoardState> {
@@ -19,24 +20,52 @@ class Board extends React.Component<BoardProps, BoardState> {
 
     this.state = {
       ...props,
-      selectedCard: ''
+      selectedCardFirst: null,
+      selectedCardSecond: null,
     };
 
     this.selectMatchCard = this.selectMatchCard.bind(this);
   }
 
   selectMatchCard = (card: MatchCardProps) => {
-    const { selectedCard } = this.state;
+    const {
+      selectedCardFirst,
+      selectedCardSecond
+    } = this.state;
 
-    this.setState({
-      selectedCard: (selectedCard && selectedCard === card.id)
-        ? ''
-        : card.id
-    });
+    if (selectedCardFirst === null
+      || selectedCardSecond === null
+      || (selectedCardSecond && selectedCardSecond.id !== card.id)
+    ) {
+      this.setState({
+        selectedCardFirst:
+          (selectedCardFirst && selectedCardFirst.id === card.id)
+            ? null
+            : (selectedCardFirst === null)
+              ? card
+              : (selectedCardFirst && selectedCardSecond && selectedCardSecond.id !== card.id)
+                ? card
+                : selectedCardFirst
+      });
+    }
+
+    if (selectedCardFirst && selectedCardFirst.id !== card.id) {
+      this.setState({
+        selectedCardSecond: (selectedCardSecond && selectedCardSecond.id === card.id)
+          ? null
+          : (selectedCardFirst && selectedCardSecond && selectedCardFirst.id && selectedCardSecond.id)
+            ? null
+            : (selectedCardFirst && selectedCardFirst.id)
+              ? card
+              : (selectedCardFirst && selectedCardFirst.id !== card.id)
+                ? selectedCardSecond
+                : null
+      });
+    }
   }
 
   render() {
-    const { cards, selectedCard } = this.state;
+    const { cards, selectedCardFirst, selectedCardSecond } = this.state;
 
     return (<Grid container spacing={3}>
       {cards
@@ -45,10 +74,12 @@ class Board extends React.Component<BoardProps, BoardState> {
         <Grid item xs={6} sm={3} key={card.id}>
           <MatchCard {... {
               ...card,
-              selected: selectedCard === card.id
+              selected: selectedCardFirst === card || selectedCardSecond === card
             }}
             onClick={() => this.selectMatchCard(card)}
           />
+          {/* {console.log('selectedCardFirst: ', selectedCardFirst)}
+          {console.log('selectedCardSecond: ', selectedCardSecond)} */}
         </Grid>
       ))}
     </Grid>);

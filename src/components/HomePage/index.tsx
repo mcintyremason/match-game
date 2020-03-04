@@ -15,49 +15,57 @@ const cards: Array<MatchCardProps> = [{
     id: '1',
     title: 'Woody',
     order: Math.floor(Math.random() * 4),
-    imgSrc: woody
+    imgSrc: woody,
+    selected: false
   },
   {
     id: '2',
     title: 'Buzz Lightyear',
     order: Math.floor(Math.random() * 4),
-    imgSrc: buzz
+    imgSrc: buzz,
+    selected: false
   },
   {
     id: '3',
     title: 'Lil Bo Peep',
     order: Math.floor(Math.random() * 4),
-    imgSrc: boPeep
+    imgSrc: boPeep,
+    selected: false
   },
   {
     id: '4',
     title: 'Forky',
     order: Math.floor(Math.random() * 4),
-    imgSrc: forky
+    imgSrc: forky,
+    selected: false
   },
   {
     id: '5',
     title: 'Woody',
     order: Math.floor(Math.random() * 4),
-    imgSrc: woody
+    imgSrc: woody,
+    selected: false
   },
   {
     id: '6',
     title: 'Buzz Lightyear',
     order: Math.floor(Math.random() * 4),
-    imgSrc: buzz
+    imgSrc: buzz,
+    selected: false
   },
   {
     id: '7',
     title: 'Lil Bo Peep',
     order: Math.floor(Math.random() * 4),
-    imgSrc: boPeep
+    imgSrc: boPeep,
+    selected: false
   },
   {
     id: '8',
     title: 'Forky',
     order: Math.floor(Math.random() * 4),
-    imgSrc: forky
+    imgSrc: forky,
+    selected: false
   }
 ];
 
