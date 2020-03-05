@@ -31,7 +31,7 @@ class Board extends React.Component<BoardProps, BoardState> {
     this.selectMatchCard = this.selectMatchCard.bind(this);
   }
 
-  checkForWin = ({ card }: { card: MatchCardProps }) => {
+  checkForMatch = ({ card }: { card: MatchCardProps }) => {
     const {
       cards,
       selectedCardFirst,
@@ -84,7 +84,7 @@ class Board extends React.Component<BoardProps, BoardState> {
                 : null
       });
 
-      this.checkForWin({ card });
+      this.checkForMatch({ card });
     }
   }
 
