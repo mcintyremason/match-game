@@ -14,7 +14,9 @@ type BoardState = {
   selectedCardSecond?: MatchCardProps | null,
   matchedCards: Array<string>,
   gameRunning: boolean,
-  gameOver: boolean
+  gameOver: boolean,
+  resetCardsTime: number,
+  resetingCards: NodeJS.Timeout | number
 } & BoardProps;
 
 class Board extends React.Component<BoardProps, BoardState> {
@@ -26,8 +28,10 @@ class Board extends React.Component<BoardProps, BoardState> {
       selectedCardFirst: null,
       selectedCardSecond: null,
       matchedCards: [],
+      gameRunning: false,
       gameOver: false,
-      gameRunning: false
+      resetingCards: 0,
+      resetCardsTime: 1500
     };
 
     this.selectMatchCard = this.selectMatchCard.bind(this);
@@ -50,20 +54,37 @@ class Board extends React.Component<BoardProps, BoardState> {
         gameOver: (matchedCards.length === (cards.length / 2))
       });
     } else if (selectedCardFirst && selectedCardFirst.value !== card.value) {
-      setTimeout(() => {
+      this.autoResetCards();
+    }
+  }
+
+  autoResetCards = (): void => {
+    const {
+      resetingCards,
+      resetCardsTime
+    } = this.state;
+
+    clearTimeout(resetingCards as number);
+
+    this.setState({
+      resetingCards: setTimeout(() => {
         const {
           selectedCardFirst,
-          selectedCardSecond,
+          selectedCardSecond
         } = this.state;
 
-        if (selectedCardFirst && selectedCardSecond && selectedCardFirst.value !== selectedCardSecond.value) {
+        if (
+          selectedCardFirst
+          && selectedCardSecond
+          && selectedCardFirst.value !== selectedCardSecond.value
+        ) {
           this.setState({
             selectedCardFirst: null,
             selectedCardSecond: null
           });
         }
-      }, 1500);
-    }
+      }, resetCardsTime)
+    });
   }
 
   selectMatchCard = ({ card }: { card: MatchCardProps }) => {
