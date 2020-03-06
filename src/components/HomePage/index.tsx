@@ -76,7 +76,7 @@ class HomePage extends React.Component<{}, {}> {
 
   render() {
     return(
-      <Grid>
+      <Grid className='home-page-container'>
         <Grid
           container
           direction='column'
@@ -85,7 +85,7 @@ class HomePage extends React.Component<{}, {}> {
         >
           <Typography variant='h2'>Matching Game</Typography>
         </Grid>
-        <Grid item xs={12}>
+        <Grid container className='board-container'>
           <Board {... {cards}}></Board>
         </Grid>
       </Grid>

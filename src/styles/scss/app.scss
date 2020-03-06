@@ -1,19 +1,54 @@
 @import './variables';
 
+html {
+
+  height: 100%;
+}
+
+body {
+
+  height: 100%;
+  margin: 0;
+}
+
+#app {
+
+  height: 100%;
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
+
   color: $primary-color;
 }
 
-/* entire container, keeps perspective */
+.home-page-container {
+  
+  height: 100%;
+}
+
+.board-container {
+  
+  height: 100%;
+  flex-flow: column nowrap;
+}
+
+.menu {
+
+  display: flex;
+  flex-flow: column nowrap;
+}
+
 .match-card-container {
+
   perspective: 1000px;
   
   .match-card {
+
     position: relative;
     height: 200px;
     border: 3px solid $border-primary;
@@ -22,17 +57,20 @@ h6 {
     transform: rotateY(180deg);
     
     &.selected {
+
 	    border: 3px solid $border-selected;
       transform: rotateY(0deg);
     }
 
     &.matched {
+
 	    border: 3px solid $border-matched;
       transform: rotateY(0deg);
     }
 
 
     .front, .back {
+
       height: 100%;
       width: 100%;
       backface-visibility: hidden;
@@ -43,6 +81,7 @@ h6 {
     }
 
     .front {
+
       z-index: 2;
       transform: rotateY(0deg);
     }
