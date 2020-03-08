@@ -82,10 +82,11 @@ class HomePage extends React.Component<{}, {}> {
           direction='column'
           justify='center'
           alignItems='center'
+          className='title'
         >
           <Typography variant='h2'>Matching Game</Typography>
         </Grid>
-        <Grid container className='board-container'>
+        <Grid container className='game-container'>
           <Board {... {cards}}></Board>
         </Grid>
       </Grid>

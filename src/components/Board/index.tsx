@@ -16,7 +16,8 @@ type BoardState = {
   gameRunning: boolean,
   gameOver: boolean,
   resetCardsTime: number,
-  resetingCards: NodeJS.Timeout | number
+  resetingCards: NodeJS.Timeout | number,
+  winDelay: number
 } & BoardProps;
 
 class Board extends React.Component<BoardProps, BoardState> {
@@ -31,28 +32,45 @@ class Board extends React.Component<BoardProps, BoardState> {
       gameRunning: false,
       gameOver: false,
       resetingCards: 0,
-      resetCardsTime: 1500
+      resetCardsTime: 1500,
+      winDelay: 1000
     };
 
     this.selectMatchCard = this.selectMatchCard.bind(this);
     this.startGame = this.startGame.bind(this);
   }
 
-  checkForMatch = ({ card }: { card: MatchCardProps }) => {
+  checkForWin = ({ card }: { card: MatchCardProps }) => {
     const {
       cards,
-      selectedCardFirst,
-      matchedCards
+      matchedCards,
+      winDelay
+    } = this.state;
+
+    matchedCards.push(card.value);
+
+    (matchedCards.length === (cards.length / 2))
+      ? setTimeout(() => {
+        this.setState({
+          selectedCardFirst: null,
+          selectedCardSecond: null,
+          gameOver: true
+        });
+      }, winDelay)
+      : this.setState({
+        selectedCardFirst: null,
+        selectedCardSecond: null,
+        gameOver: false
+      });
+  }
+
+  checkForMatch = ({ card }: { card: MatchCardProps }) => {
+    const {
+      selectedCardFirst
     } = this.state;
 
     if (selectedCardFirst && selectedCardFirst.value === card.value) {
-      matchedCards.push(card.value);
-
-      this.setState({
-        selectedCardFirst: null,
-        selectedCardSecond: null,
-        gameOver: (matchedCards.length === (cards.length / 2))
-      });
+      this.checkForWin({ card });
     } else if (selectedCardFirst && selectedCardFirst.value !== card.value) {
       this.autoResetCards();
     }
@@ -93,33 +111,33 @@ class Board extends React.Component<BoardProps, BoardState> {
       selectedCardSecond
     } = this.state;
 
-    if (selectedCardFirst === null
-      || selectedCardSecond === null
+    if (selectedCardSecond === null
       || (selectedCardSecond && selectedCardSecond.id !== card.id)
     ) {
       this.setState({
         selectedCardFirst:
           (selectedCardFirst && selectedCardFirst.id === card.id)
             ? null
-            : (selectedCardFirst === null)
-              ? card
-              : (selectedCardFirst && selectedCardSecond && selectedCardSecond.id !== card.id)
+            : (selectedCardFirst !== null)
+              ? ((selectedCardFirst && selectedCardFirst.value === card.value)
+                || (selectedCardSecond && selectedCardSecond.id !== card.id))
                 ? card
                 : selectedCardFirst
+              : card
       });
     }
 
     if (selectedCardFirst && selectedCardFirst.id !== card.id) {
       this.setState({
-        selectedCardSecond: (selectedCardSecond && selectedCardSecond.id === card.id)
+        selectedCardSecond:
+        (selectedCardSecond && selectedCardSecond.id === card.id)
+        || (selectedCardFirst && selectedCardSecond)
           ? null
-          : (selectedCardFirst && selectedCardSecond && selectedCardFirst.id && selectedCardSecond.id)
-            ? null
-            : (selectedCardFirst && selectedCardFirst.id)
-              ? card
-              : (selectedCardFirst && selectedCardFirst.id !== card.id)
-                ? selectedCardSecond
-                : null
+          : (selectedCardFirst && selectedCardFirst.id !== card.id)
+            ? card
+            : (selectedCardFirst.value !== card.value)
+              ? selectedCardSecond
+              : null
       });
 
       this.checkForMatch({ card });

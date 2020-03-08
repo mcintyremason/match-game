@@ -29,61 +29,69 @@ h6 {
 .home-page-container {
   
   height: 100%;
-}
 
-.board-container {
-  
-  height: 100%;
-  flex-flow: column nowrap;
-}
+  .title {
+    padding: 3% 0 0;
+  }
 
-.menu {
-
-  display: flex;
-  flex-flow: column nowrap;
-}
-
-.match-card-container {
-
-  perspective: 1000px;
-  
-  .match-card {
-
-    position: relative;
-    height: 200px;
-    border: 3px solid $border-primary;
-    transition: 0.5s;
-    transform-style: preserve-3d;
-    transform: rotateY(180deg);
+  .game-container {
     
-    &.selected {
+    height: 100%;
+    padding: 0 0 20% 0;
+    flex-flow: column nowrap;
+    justify-content: center;
 
-	    border: 3px solid $border-selected;
-      transform: rotateY(0deg);
+    .menu {
+
+      display: flex;
+      flex-flow: column nowrap;
     }
 
-    &.matched {
+    .match-card-container {
 
-	    border: 3px solid $border-matched;
-      transform: rotateY(0deg);
-    }
+      perspective: 1000px;
+      
+      .match-card {
+
+        position: relative;
+        height: 200px;
+        border: 3px solid $border-primary;
+        transition: 0.5s;
+        transform-style: preserve-3d;
+        transform: rotateY(180deg);
+        
+        &.selected {
+
+          border: 3px solid $border-selected;
+          transform: rotateY(0deg);
+        }
+
+        &.matched {
+
+          border: 3px solid $border-matched;
+          transform: rotateY(0deg);
+        }
 
 
-    .front, .back {
+        .front, .back {
 
-      height: 100%;
-      width: 100%;
-      backface-visibility: hidden;
+          height: 100%;
+          width: 100%;
+          backface-visibility: hidden;
 
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
 
-    .front {
+        .front {
 
-      z-index: 2;
-      transform: rotateY(0deg);
+          z-index: 2;
+          transform: rotateY(0deg);
+        }
+      }
     }
   }
 }
+
+@import './utilities';
