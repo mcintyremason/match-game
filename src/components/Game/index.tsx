@@ -208,11 +208,11 @@ class Game extends React.Component<GameProps, GameType> {
         >
           <Typography variant='h1'>You Win!</Typography>
         </Grid>)
-        : <Grid container spacing={3}>
+        : <Grid container spacing={cards.length <= 8 ? 3 : 1}>
           {cards
           .sort((a, b) => a.order - b.order)
           .map(card => (
-          <Grid item xs={6} sm={3} key={card.id}>
+          <Grid item xs={6} sm={cards.length <= 8 ? 3 : 2} key={card.id}>
             <MatchCard {... {
                 ...card,
                 selected: selectedCardFirst === card || selectedCardSecond === card,

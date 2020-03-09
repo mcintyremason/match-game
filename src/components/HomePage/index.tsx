@@ -70,34 +70,34 @@ const cards: Array<MatchCardProps> = [{
     imgSrc: forky,
     selected: false
   },
-  // {
-  //   id: '9',
-  //   value: 'Mr. Potato Head',
-  //   order: Math.floor(Math.random() * 4),
-  //   imgSrc: mrPotatoHead,
-  //   selected: false
-  // },
-  // {
-  //   id: '10',
-  //   value: 'Mr. Potato Head',
-  //   order: Math.floor(Math.random() * 4),
-  //   imgSrc: mrPotatoHead,
-  //   selected: false
-  // },
-  // {
-  //   id: '11',
-  //   value: 'Mrs. Potato Head',
-  //   order: Math.floor(Math.random() * 4),
-  //   imgSrc: mrsPotatoHead,
-  //   selected: false
-  // },
-  // {
-  //   id: '12',
-  //   value: 'Mrs. Potato Head',
-  //   order: Math.floor(Math.random() * 4),
-  //   imgSrc: mrsPotatoHead,
-  //   selected: false
-  // },
+  {
+    id: '9',
+    value: 'Mr. Potato Head',
+    order: Math.floor(Math.random() * 4),
+    imgSrc: mrPotatoHead,
+    selected: false
+  },
+  {
+    id: '10',
+    value: 'Mr. Potato Head',
+    order: Math.floor(Math.random() * 4),
+    imgSrc: mrPotatoHead,
+    selected: false
+  },
+  {
+    id: '11',
+    value: 'Mrs. Potato Head',
+    order: Math.floor(Math.random() * 4),
+    imgSrc: mrsPotatoHead,
+    selected: false
+  },
+  {
+    id: '12',
+    value: 'Mrs. Potato Head',
+    order: Math.floor(Math.random() * 4),
+    imgSrc: mrsPotatoHead,
+    selected: false
+  },
   // {
   //   id: '13',
   //   value: 'Slinky Dog',
