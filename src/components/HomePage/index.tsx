@@ -10,6 +10,9 @@ import woody from '../../assets/images/woody.jpg';
 import buzz from '../../assets/images/buzz-lightyear.jpg';
 import boPeep from '../../assets/images/bo-peep.jpg';
 import forky from '../../assets/images/forky.jpg';
+import mrPotatoHead from '../../assets/images/mr-potato-head_700x352.jpg';
+import mrsPotatoHead from '../../assets/images/mrs-potato-head.webp';
+import slinkyDog from '../../assets/images/slinky-dog.webp';
 
 const cards: Array<MatchCardProps> = [{
     id: '1',
@@ -66,7 +69,49 @@ const cards: Array<MatchCardProps> = [{
     order: Math.floor(Math.random() * 4),
     imgSrc: forky,
     selected: false
-  }
+  },
+  // {
+  //   id: '9',
+  //   value: 'Mr. Potato Head',
+  //   order: Math.floor(Math.random() * 4),
+  //   imgSrc: mrPotatoHead,
+  //   selected: false
+  // },
+  // {
+  //   id: '10',
+  //   value: 'Mr. Potato Head',
+  //   order: Math.floor(Math.random() * 4),
+  //   imgSrc: mrPotatoHead,
+  //   selected: false
+  // },
+  // {
+  //   id: '11',
+  //   value: 'Mrs. Potato Head',
+  //   order: Math.floor(Math.random() * 4),
+  //   imgSrc: mrsPotatoHead,
+  //   selected: false
+  // },
+  // {
+  //   id: '12',
+  //   value: 'Mrs. Potato Head',
+  //   order: Math.floor(Math.random() * 4),
+  //   imgSrc: mrsPotatoHead,
+  //   selected: false
+  // },
+  // {
+  //   id: '13',
+  //   value: 'Slinky Dog',
+  //   order: Math.floor(Math.random() * 4),
+  //   imgSrc: slinkyDog,
+  //   selected: false
+  // },
+  // {
+  //   id: '14',
+  //   value: 'Slinky Dog',
+  //   order: Math.floor(Math.random() * 4),
+  //   imgSrc: slinkyDog,
+  //   selected: false
+  // }
 ];
 
 class HomePage extends React.Component<{}, {}> {

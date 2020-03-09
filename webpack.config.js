@@ -44,11 +44,11 @@ module.exports = {
       },
       // load images
       {
-          test: /\.(jpg|png)$/,
-          use: {
-            loader: 'url-loader',
-          },
+        test: /\.(jpg|png|webp)$/,
+        use: {
+          loader: 'url-loader',
         },
+      },
       ]
   },
   plugins: [
