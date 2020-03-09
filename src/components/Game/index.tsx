@@ -5,39 +5,77 @@ import {
 
 import MatchCard, { MatchCardProps } from '../MatchCard';
 
-type BoardProps = {
+type GameProps = {
   cards: Array<MatchCardProps>
 };
 
-type BoardState = {
+type GameState = {
   selectedCardFirst?: MatchCardProps | null,
   selectedCardSecond?: MatchCardProps | null,
   matchedCards: Array<string>,
   gameRunning: boolean,
   gameOver: boolean,
-  resetCardsTime: number,
+  resetCardsDelay: number,
+  resetGameDelay: number,
   resetingCards: NodeJS.Timeout | number,
   winDelay: number
-} & BoardProps;
+};
 
-class Board extends React.Component<BoardProps, BoardState> {
-  constructor(props: BoardProps) {
+type GameType = GameProps & GameState;
+
+const initState: GameState = {
+  selectedCardFirst: null,
+  selectedCardSecond: null,
+  matchedCards: [],
+  gameRunning: false,
+  gameOver: false,
+  resetCardsDelay: 1500,
+  resetGameDelay: 3000,
+  resetingCards: 0,
+  winDelay: 1000
+};
+
+class Game extends React.Component<GameProps, GameType> {
+  constructor(props: GameProps) {
     super(props);
 
     this.state = {
       ...props,
-      selectedCardFirst: null,
-      selectedCardSecond: null,
-      matchedCards: [],
-      gameRunning: false,
-      gameOver: false,
-      resetingCards: 0,
-      resetCardsTime: 1500,
-      winDelay: 1000
+      ...initState
     };
 
     this.selectMatchCard = this.selectMatchCard.bind(this);
     this.startGame = this.startGame.bind(this);
+  }
+
+  shuffleCards = (): GameProps => {
+    const {
+      cards
+    } = this.props;
+
+    return {
+      cards: cards.map(( card ) => ({
+        ...card,
+        matched: false,
+        order: Math.floor(Math.random() * 4)
+      }))
+    }
+  }
+
+  resetGame = (): boolean => {
+    const {
+      resetGameDelay
+    } = this.state;
+
+    setTimeout(() => {
+      this.setState({
+        ...this.shuffleCards(),
+        ...initState,
+        matchedCards: []
+      });
+    }, resetGameDelay);
+
+    return true;
   }
 
   checkForWin = ({ card }: { card: MatchCardProps }) => {
@@ -54,7 +92,7 @@ class Board extends React.Component<BoardProps, BoardState> {
         this.setState({
           selectedCardFirst: null,
           selectedCardSecond: null,
-          gameOver: true
+          gameOver: this.resetGame()
         });
       }, winDelay)
       : this.setState({
@@ -64,22 +102,10 @@ class Board extends React.Component<BoardProps, BoardState> {
       });
   }
 
-  checkForMatch = ({ card }: { card: MatchCardProps }) => {
-    const {
-      selectedCardFirst
-    } = this.state;
-
-    if (selectedCardFirst && selectedCardFirst.value === card.value) {
-      this.checkForWin({ card });
-    } else if (selectedCardFirst && selectedCardFirst.value !== card.value) {
-      this.autoResetCards();
-    }
-  }
-
   autoResetCards = (): void => {
     const {
       resetingCards,
-      resetCardsTime
+      resetCardsDelay
     } = this.state;
 
     clearTimeout(resetingCards as number);
@@ -101,8 +127,23 @@ class Board extends React.Component<BoardProps, BoardState> {
             selectedCardSecond: null
           });
         }
-      }, resetCardsTime)
+      }, resetCardsDelay)
     });
+  }
+
+  checkForMatch = ({ card }: { card: MatchCardProps }): MatchCardProps | null => {
+    const {
+      selectedCardFirst
+    } = this.state;
+
+    if (selectedCardFirst && selectedCardFirst.value === card.value) {
+      this.checkForWin({ card });
+    } else if (selectedCardFirst && selectedCardFirst.value !== card.value) {
+      this.autoResetCards();
+      return card;
+    }
+
+    return null;
   }
 
   selectMatchCard = ({ card }: { card: MatchCardProps }) => {
@@ -119,8 +160,7 @@ class Board extends React.Component<BoardProps, BoardState> {
           (selectedCardFirst && selectedCardFirst.id === card.id)
             ? null
             : (selectedCardFirst !== null)
-              ? ((selectedCardFirst && selectedCardFirst.value === card.value)
-                || (selectedCardSecond && selectedCardSecond.id !== card.id))
+              ? (selectedCardSecond && selectedCardSecond.id !== card.id)
                 ? card
                 : selectedCardFirst
               : card
@@ -134,13 +174,11 @@ class Board extends React.Component<BoardProps, BoardState> {
         || (selectedCardFirst && selectedCardSecond)
           ? null
           : (selectedCardFirst && selectedCardFirst.id !== card.id)
-            ? card
+            ? this.checkForMatch({ card })
             : (selectedCardFirst.value !== card.value)
               ? selectedCardSecond
               : null
       });
-
-      this.checkForMatch({ card });
     }
   }
 
@@ -203,4 +241,4 @@ class Board extends React.Component<BoardProps, BoardState> {
   }
 }
 
-export default Board;
+export default Game;

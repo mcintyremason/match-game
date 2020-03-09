@@ -3,7 +3,7 @@ import {
   Grid, Typography
 } from '@material-ui/core';
 
-import Board from '../Board';
+import Game from '../Game';
 import { MatchCardProps } from '../MatchCard';
 
 import woody from '../../assets/images/woody.jpg';
@@ -87,7 +87,7 @@ class HomePage extends React.Component<{}, {}> {
           <Typography variant='h2'>Matching Game</Typography>
         </Grid>
         <Grid container className='game-container'>
-          <Board {... {cards}}></Board>
+          <Game {... { cards }}></Game>
         </Grid>
       </Grid>
     );
