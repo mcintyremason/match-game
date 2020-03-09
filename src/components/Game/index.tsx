@@ -235,7 +235,7 @@ class Game extends React.Component<GameProps, GameType> {
             value='START'
             onClick={this.startGame}
           >
-             <Typography>START</Typography>
+            <Typography>START</Typography>
           </Button>
         </Grid>);
   }
