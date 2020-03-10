@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Button, Grid, Typography
+  Button, Grid, Typography, Paper
 } from '@material-ui/core';
 
 import MatchCard, { MatchCardProps } from '../MatchCard';
@@ -10,6 +10,7 @@ type GameProps = {
 };
 
 type GameState = {
+  difficulty: number,
   selectedCardFirst?: MatchCardProps | null,
   selectedCardSecond?: MatchCardProps | null,
   matchedCards: Array<string>,
@@ -24,6 +25,7 @@ type GameState = {
 type GameType = GameProps & GameState;
 
 const initState: GameState = {
+  difficulty: 2,
   selectedCardFirst: null,
   selectedCardSecond: null,
   matchedCards: [],
@@ -183,7 +185,17 @@ class Game extends React.Component<GameProps, GameType> {
   }
 
   startGame = () => {
+    const {
+      cards,
+      difficulty
+    } = this.state;
+
     this.setState({
+      cards: difficulty === 0
+        ? cards.filter(card => card.id <= 8)
+        : difficulty === 1
+          ? cards.filter(card => card.id <= 16)
+          : cards.filter(card => card.id <= 24),
       gameRunning: true
     });
   }
@@ -191,6 +203,7 @@ class Game extends React.Component<GameProps, GameType> {
   render() {
     const {
       cards,
+      difficulty,
       selectedCardFirst,
       selectedCardSecond,
       matchedCards,
@@ -208,22 +221,26 @@ class Game extends React.Component<GameProps, GameType> {
         >
           <Typography variant='h1'>You Win!</Typography>
         </Grid>)
-        : <Grid container spacing={cards.length <= 8 ? 3 : 1}>
+        : <div
+          className={`${difficulty === 0 ? 'easy' : difficulty === 1 ? 'medium' : 'hard'}`}
+        >
+          <Grid container spacing={3}>
           {cards
           .sort((a, b) => a.order - b.order)
-          .map(card => (
-          <Grid item xs={6} sm={cards.length <= 8 ? 3 : 2} key={card.id}>
-            <MatchCard {... {
-                ...card,
-                selected: selectedCardFirst === card || selectedCardSecond === card,
-                matched: matchedCards.find(x => x === card.value) ? true : false
-              }}
-              onClick={() => this.selectMatchCard({ card })}
-            />
-          </Grid>))}
-        </Grid>)
+          .map(card =>
+            (<Grid item xs={difficulty < 2 ? 3 : 2} key={card.id}>
+              <MatchCard {... {
+                  ...card,
+                  classes: `${difficulty === 0 ? 'large' : difficulty === 1 ? 'medium' : 'small'}`,
+                  selected: selectedCardFirst === card || selectedCardSecond === card,
+                  matched: matchedCards.find(x => x === card.value) ? true : false
+                }}
+                onClick={() => this.selectMatchCard({ card })}
+              />
+            </Grid>))}
+          </Grid>
+        </div>)
         : <Grid
-          className='menu'
           container
           direction='column'
           justify='center'

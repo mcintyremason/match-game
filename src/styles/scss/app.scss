@@ -37,29 +37,47 @@ h6 {
   .game-container {
     
     height: 100%;
-    padding: 0 0 20% 0;
-    flex-flow: column nowrap;
-    justify-content: center;
+    width: 100%;
+    padding: 0 0 20%;
 
-    .menu {
+    .easy {
+      width: 75%;
+    }
 
-      display: flex;
-      flex-flow: column nowrap;
+    .medium {
+      width: 75%;
+    }
+
+    .hard {
+      width: 80%;
     }
 
     .match-card-container {
 
       perspective: 1000px;
+      padding: 0;
       
       .match-card {
 
         position: relative;
-        height: 200px;
         border: 3px solid $border-primary;
         transition: 0.5s;
         transform-style: preserve-3d;
         transform: rotateY(180deg);
         
+        &.large {
+          height: 12.5em;
+        }
+
+        &.medium {
+          height: 7.8125em;
+        }
+
+        &.small {
+          height: 7.8125em;
+          // height: 6.25em;
+        }
+
         &.selected {
 
           border: 3px solid $border-selected;
@@ -93,5 +111,7 @@ h6 {
     }
   }
 }
+
+@import './media-queries';
 
 @import './utilities';
