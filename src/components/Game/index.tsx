@@ -228,7 +228,7 @@ class Game extends React.Component<GameProps, GameType> {
           {cards
           .sort((a, b) => a.order - b.order)
           .map(card =>
-            (<Grid item xs={difficulty < 2 ? 3 : 2} key={card.id}>
+            (<Grid item xs={6} sm={4} md={difficulty < 2 ? 3 : 2} key={card.id}>
               <MatchCard {... {
                   ...card,
                   classes: `${difficulty === 0 ? 'large' : difficulty === 1 ? 'medium' : 'small'}`,
