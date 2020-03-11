@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Button, Grid, Typography, Paper
+  Button, Grid, Typography
 } from '@material-ui/core';
 
 import MatchCard, { MatchCardProps } from '../MatchCard';
@@ -61,7 +61,7 @@ class Game extends React.Component<GameProps, GameType> {
         matched: false,
         order: Math.floor(Math.random() * 4)
       }))
-    }
+    };
   }
 
   resetGame = (): boolean => {
