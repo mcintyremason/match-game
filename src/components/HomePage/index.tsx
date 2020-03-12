@@ -185,12 +185,7 @@ const cards: Array<MatchCardProps> = [{
   }
 ];
 
-class HomePage extends React.Component<{}, {}> {
-  constructor(props: any) {
-    super(props);
-  }
-
-  render() {
+function HomePage() {
     return(
       <Grid className='home-page-container'>
         <Grid
@@ -213,7 +208,5 @@ class HomePage extends React.Component<{}, {}> {
         </Grid>
       </Grid>
     );
-  }
 }
-
 export default HomePage;
