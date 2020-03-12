@@ -14,6 +14,10 @@ import mrPotatoHead from '../../assets/images/mr-potato-head_700x352.jpg';
 import mrsPotatoHead from '../../assets/images/mrs-potato-head.webp';
 import slinkyDog from '../../assets/images/slinky-dog.webp';
 import aliens from '../../assets/images/aliens.jpg';
+import armyMen from '../../assets/images/army-men-toy-story-1.jpg';
+import rex from '../../assets/images/rex.jpg';
+import bullseye from '../../assets/images/bullseye.jpg';
+import hamm from '../../assets/images/hamm.jpg';
 
 const cards: Array<MatchCardProps> = [{
     id: 1,
@@ -129,58 +133,58 @@ const cards: Array<MatchCardProps> = [{
   },
   {
     id: 17,
-    value: 'aliens1',
+    value: 'Army Men',
     order: Math.floor(Math.random() * 24),
-    imgSrc: aliens,
+    imgSrc: armyMen,
     selected: false
   },
   {
     id: 18,
-    value: 'aliens1',
+    value: 'Army Men',
     order: Math.floor(Math.random() * 24),
-    imgSrc: aliens,
+    imgSrc: armyMen,
     selected: false
   },
   {
     id: 19,
-    value: 'aliens2',
+    value: 'Rex',
     order: Math.floor(Math.random() * 24),
-    imgSrc: aliens,
+    imgSrc: rex,
     selected: false
   },
   {
     id: 20,
-    value: 'aliens2',
+    value: 'Rex',
     order: Math.floor(Math.random() * 24),
-    imgSrc: aliens,
+    imgSrc: rex,
     selected: false
   },
   {
     id: 21,
-    value: 'aliens3',
+    value: 'Bullseye',
     order: Math.floor(Math.random() * 24),
-    imgSrc: aliens,
+    imgSrc: bullseye,
     selected: false
   },
   {
     id: 22,
-    value: 'aliens3',
+    value: 'Bullseye',
     order: Math.floor(Math.random() * 24),
-    imgSrc: aliens,
+    imgSrc: bullseye,
     selected: false
   },
   {
     id: 23,
-    value: 'aliens4',
+    value: 'Hamm',
     order: Math.floor(Math.random() * 24),
-    imgSrc: aliens,
+    imgSrc: hamm,
     selected: false
   },
   {
     id: 24,
-    value: 'aliens4',
+    value: 'Hamm',
     order: Math.floor(Math.random() * 24),
-    imgSrc: aliens,
+    imgSrc: hamm,
     selected: false
   }
 ];
