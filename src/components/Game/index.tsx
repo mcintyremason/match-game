@@ -45,6 +45,7 @@ const Game = (props: GameProps) => {
   }
 
   const resetGame = (): boolean => {
+    console.log('resetGame')
     setTimeout(() => {
       shuffleCards();
       setSelectedCardFirst(null);
@@ -77,9 +78,7 @@ const Game = (props: GameProps) => {
       }, resetCardsDelay));
   }
 
-  const checkForWin = ({ card }: { card: MatchCardProps }) => {
-    matchedCards.push(card.value);
-
+  const checkForWin = () => {
     (matchedCards.length === (cards.length / 2))
       ? setTimeout(() => {
         setSelectedCardFirst(null);
@@ -89,49 +88,43 @@ const Game = (props: GameProps) => {
       : resetCards();
   }
 
-  const checkForMatch = ({ card }: { card: MatchCardProps }): MatchCardProps | null => {
-    if (selectedCardFirst && selectedCardFirst.value === card.value) {
-      console.log('3')
-      checkForWin({ card });
-      return card;
-    } else if (selectedCardFirst && selectedCardFirst.value !== card.value) {
+  const checkForMatch = () => {
+    if (selectedCardFirst && selectedCardFirst.value === selectedCardSecond?.value) {
+      // if match add to list of matched cards & check for win
+      setMatchedCards([...matchedCards, selectedCardSecond.value]);
+      return checkForWin();
+    } else if (selectedCardFirst && selectedCardFirst.value !== selectedCardSecond?.value) {
+      // else there's no match & the cards are flipped back over
       autoResetCards();
-      return card;
+      return selectedCardSecond;
     }
     return null;
   };
 
   const selectMatchCard = ({ card }: { card: MatchCardProps }) => {
-    if (selectedCardSecond === null
-      || (selectedCardSecond && selectedCardSecond.id !== card.id)
-    ) {
-      setSelectedCardFirst(
-          (selectedCardFirst && selectedCardFirst.id === card.id)
-            ? null
-            : (selectedCardFirst !== null)
-              ? (selectedCardSecond && selectedCardSecond.id !== card.id)
-                ? card
-                : selectedCardFirst
-              : card);
-    }
-
-    if (selectedCardFirst && selectedCardFirst.id !== card.id) {
-      setSelectedCardSecond(
-        (selectedCardSecond && selectedCardSecond.id === card.id)
-        || (selectedCardFirst && selectedCardSecond)
-          ? null
-          : (selectedCardFirst && selectedCardFirst.id !== card.id)
-            ? checkForMatch({ card })
-            : (selectedCardFirst.value !== card.value)
-              ? selectedCardSecond
-              : null
-      );
+    console.log(card.value)
+    if (selectedCardFirst?.id === card.id) {
+      // if first selected card is reselected
+      setSelectedCardFirst(null);
+    } else if (selectedCardFirst === null && selectedCardSecond === null) {
+      // if no cards selected
+      setSelectedCardFirst(card);
+    } else if (selectedCardFirst && selectedCardSecond?.id === card.id) {
+      // if first card is selected, and second card is reselected
+      setSelectedCardSecond(null);
+    } else if (selectedCardFirst && selectedCardSecond === null) {
+      // if first card is selected, and second card is not selected
+      setSelectedCardSecond(card);
     }
   };
 
   useEffect(() => {
-    console.log('hit')
-  });
+    checkForMatch();
+  }, [selectedCardSecond]);
+
+  useEffect(() => {
+    checkForWin();
+  }, [matchedCards]);
 
   return (gameRunning
     ? (gameOver
