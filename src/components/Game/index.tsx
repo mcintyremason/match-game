@@ -12,19 +12,16 @@ type GameProps = {
   resetCardsDelay: number
   resetGameDelay: number
   winDelay: number
-  // cards: Array<MatchCardProps>
 };
 
 const Game = (props: GameProps) => {
+  const { cards, setCards } = useContext(GameContext);
   const {
     difficulty,
     resetCardsDelay,
     resetGameDelay,
     winDelay
   } = props;
-  // const [cards, setCards] = useState<Array<MatchCardProps>>(props.cards);
-  const { cards, setCards } = useContext(GameContext);
-
   const [selectedCardFirst, setSelectedCardFirst] = useState<MatchCardProps | null>(null);
   const [selectedCardSecond, setSelectedCardSecond] = useState<MatchCardProps | null>(null);
   const [matchedCards, setMatchedCards] = useState<Array<String>>([]);
@@ -56,14 +53,13 @@ const Game = (props: GameProps) => {
       setResetingCards(0);
     }, resetGameDelay);
     return true;
-  }
+  };
 
   const resetCards = () => {
     setSelectedCardFirst(null);
     setSelectedCardSecond(null);
     setGameOver(false);
-  }
-
+  };
 
   const autoResetCards = (): void => {
     clearTimeout(resetingCards as number);
@@ -76,7 +72,7 @@ const Game = (props: GameProps) => {
           resetCards()
         }
       }, resetCardsDelay));
-  }
+  };
 
   const checkForWin = () => {
     (matchedCards.length === (cards.length / 2))
@@ -86,7 +82,7 @@ const Game = (props: GameProps) => {
         setGameOver(resetGame());
       }, winDelay)
       : resetCards();
-  }
+  };
 
   const checkForMatch = () => {
     if (selectedCardFirst && selectedCardFirst.value === selectedCardSecond?.value) {
@@ -107,7 +103,7 @@ const Game = (props: GameProps) => {
       // if first selected card is reselected
       setSelectedCardFirst(null);
     } else if (selectedCardFirst === null && selectedCardSecond === null) {
-      // if no cards selected
+      // if no cards are selected
       setSelectedCardFirst(card);
     } else if (selectedCardFirst && selectedCardSecond?.id === card.id) {
       // if first card is selected, and second card is reselected
@@ -115,6 +111,10 @@ const Game = (props: GameProps) => {
     } else if (selectedCardFirst && selectedCardSecond === null) {
       // if first card is selected, and second card is not selected
       setSelectedCardSecond(card);
+    } else if ((selectedCardFirst && selectedCardSecond === null) && selectedCardFirst.id != card.id){
+      // if first card is selected, and second card is not selected
+      setSelectedCardFirst(card);
+      setSelectedCardSecond(null);
     }
   };
 
