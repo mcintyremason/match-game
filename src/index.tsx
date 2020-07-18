@@ -1,10 +1,10 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
 
-import './styles/scss/app.scss';
+import './styles/scss/app.scss'
 
-import HomePage from './components/HomePage/index';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import HomePage from './components/HomePage/index'
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 
 const theme = createMuiTheme({
   props: {
@@ -19,20 +19,20 @@ const theme = createMuiTheme({
         subtitle1: 'h2',
         subtitle2: 'h2',
         body1: 'span',
-        body2: 'span'
-      }
-    }
-  }
-});
+        body2: 'span',
+      },
+    },
+  },
+})
 
 export default class App extends React.Component {
   render() {
-    return(
-      <ThemeProvider {... { theme } }>
-        <HomePage/>
+    return (
+      <ThemeProvider {...{ theme }}>
+        <HomePage />
       </ThemeProvider>
-    );
+    )
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'))
