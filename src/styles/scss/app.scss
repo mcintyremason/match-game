@@ -1,18 +1,15 @@
 @import './variables';
 
 html {
-
   height: 100%;
 }
 
 body {
-
   height: 100%;
   margin: 0;
 }
 
 #app {
-
   height: 100%;
 }
 
@@ -22,12 +19,10 @@ h3,
 h4,
 h5,
 h6 {
-
   color: $primary-color;
 }
 
 .home-page-container {
-  
   height: 100%;
 
   .title {
@@ -35,7 +30,6 @@ h6 {
   }
 
   .game-container {
-    
     height: 100%;
     width: 100%;
     padding: 0 0 20%;
@@ -53,18 +47,16 @@ h6 {
     }
 
     .match-card-container {
-
       perspective: 1000px;
-      padding: 0;
-      
-      .match-card {
+      padding: 5%;
 
+      .match-card {
         position: relative;
         border: 3px solid $border-primary;
         transition: 0.5s;
         transform-style: preserve-3d;
         transform: rotateY(180deg);
-        
+
         &.large {
           height: 12.5em;
         }
@@ -75,24 +67,20 @@ h6 {
 
         &.small {
           height: 7.8125em;
-          // height: 6.25em;
         }
 
         &.selected {
-
           border: 3px solid $border-selected;
           transform: rotateY(0deg);
         }
 
         &.matched {
-
           border: 3px solid $border-matched;
           transform: rotateY(0deg);
         }
 
-
-        .front, .back {
-
+        .front,
+        .back {
           height: 100%;
           width: 100%;
           backface-visibility: hidden;
@@ -103,7 +91,6 @@ h6 {
         }
 
         .front {
-
           z-index: 2;
           transform: rotateY(0deg);
         }
