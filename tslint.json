@@ -65,9 +65,9 @@
     "no-trailing-whitespace": true,
     "object-literal-sort-keys": false,
     "trailing-comma": [
-      true,
+      false,
       {
-        "multiline": "never",
+        "multiline": "always",
         "singleline": "never"
       }
     ],
@@ -87,7 +87,7 @@
       "check-whitespace"
     ],
     "quotemark": [true, "single", "avoid-escape"],
-    "semicolon": [true, "always"],
+    "semicolon": [false, "never"],
     "variable-name": [
       false,
       "check-format",
