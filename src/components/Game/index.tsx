@@ -105,6 +105,9 @@ const Game = (props: GameProps) => {
     return null
   }
 
+  const isMatched = (card: MatchCardProps): boolean =>
+    matchedCards.includes(card.value)
+
   const selectMatchCard = ({ card }: { card: MatchCardProps }) => {
     if (selectedCardFirst?.id === card.id) {
       // if first selected card is reselected
@@ -180,7 +183,7 @@ const Game = (props: GameProps) => {
                       ? true
                       : false,
                   }}
-                  onClick={() => selectMatchCard({ card })}
+                  onClick={() => !isMatched(card) && selectMatchCard({ card })}
                 />
               </Grid>
             ))}
