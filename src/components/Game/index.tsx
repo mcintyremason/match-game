@@ -1,267 +1,188 @@
-import * as React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+
 import {
   Button, Grid, Typography
 } from '@material-ui/core';
 
 import MatchCard, { MatchCardProps } from '../MatchCard';
+import { GameContext } from '../HomePage';
 
 type GameProps = {
-  cards: Array<MatchCardProps>
-};
-
-type GameState = {
-  difficulty: number,
-  selectedCardFirst?: MatchCardProps | null,
-  selectedCardSecond?: MatchCardProps | null,
-  matchedCards: Array<string>,
-  gameRunning: boolean,
-  gameOver: boolean,
-  resetCardsDelay: number,
-  resetGameDelay: number,
-  resetingCards: NodeJS.Timeout | number,
+  difficulty: number
+  resetCardsDelay: number
+  resetGameDelay: number
   winDelay: number
+  // cards: Array<MatchCardProps>
 };
 
-type GameType = GameProps & GameState;
+const Game = (props: GameProps) => {
+  const {
+    difficulty,
+    resetCardsDelay,
+    resetGameDelay,
+    winDelay
+  } = props;
+  // const [cards, setCards] = useState<Array<MatchCardProps>>(props.cards);
+  const { cards, setCards } = useContext(GameContext);
 
-const initState: GameState = {
-  difficulty: 2,
-  selectedCardFirst: null,
-  selectedCardSecond: null,
-  matchedCards: [],
-  gameRunning: false,
-  gameOver: false,
-  resetCardsDelay: 1500,
-  resetGameDelay: 3000,
-  resetingCards: 0,
-  winDelay: 1000
-};
+  const [selectedCardFirst, setSelectedCardFirst] = useState<MatchCardProps | null>(null);
+  const [selectedCardSecond, setSelectedCardSecond] = useState<MatchCardProps | null>(null);
+  const [matchedCards, setMatchedCards] = useState<Array<String>>([]);
+  const [gameRunning, setGameRunning] = useState<boolean>(false);
+  const [gameOver, setGameOver] = useState<boolean>(false);
+  const [resetingCards, setResetingCards] = useState<NodeJS.Timeout | number>(0);
 
-class Game extends React.Component<GameProps, GameType> {
-  constructor(props: GameProps) {
-    super(props);
+  const startGame = () => {
+    setGameRunning(true);
+  };
 
-    this.state = {
-      ...props,
-      ...initState
-    };
-
-    this.selectMatchCard = this.selectMatchCard.bind(this);
-    this.startGame = this.startGame.bind(this);
+  const shuffleCards = () => {
+    setCards(cards.map(( card ) => ({
+      ...card,
+      matched: false,
+      order: Math.floor(Math.random() * 4)
+    })));
   }
 
-  shuffleCards = (): GameProps => {
-    const {
-      cards
-    } = this.props;
-
-    return {
-      cards: cards.map(( card ) => ({
-        ...card,
-        matched: false,
-        order: Math.floor(Math.random() * 4)
-      }))
-    };
-  }
-
-  resetGame = (): boolean => {
-    const {
-      resetGameDelay
-    } = this.state;
-
+  const resetGame = (): boolean => {
     setTimeout(() => {
-      this.setState({
-        ...this.shuffleCards(),
-        ...initState,
-        matchedCards: []
-      });
+      shuffleCards();
+      setSelectedCardFirst(null);
+      setSelectedCardSecond(null);
+      setMatchedCards([]);
+      setGameRunning(false);
+      setGameOver(false);
+      setResetingCards(0);
     }, resetGameDelay);
-
     return true;
   }
 
-  checkForWin = ({ card }: { card: MatchCardProps }) => {
-    const {
-      cards,
-      matchedCards,
-      winDelay
-    } = this.state;
-
-    matchedCards.push(card.value);
-
-    (matchedCards.length === (cards.length / 2))
-      ? setTimeout(() => {
-        this.setState({
-          selectedCardFirst: null,
-          selectedCardSecond: null,
-          gameOver: this.resetGame()
-        });
-      }, winDelay)
-      : this.setState({
-        selectedCardFirst: null,
-        selectedCardSecond: null,
-        gameOver: false
-      });
+  const resetCards = () => {
+    setSelectedCardFirst(null);
+    setSelectedCardSecond(null);
+    setGameOver(false);
   }
 
-  autoResetCards = (): void => {
-    const {
-      resetingCards,
-      resetCardsDelay
-    } = this.state;
 
+  const autoResetCards = (): void => {
     clearTimeout(resetingCards as number);
-
-    this.setState({
-      resetingCards: setTimeout(() => {
-        const {
-          selectedCardFirst,
-          selectedCardSecond
-        } = this.state;
-
+    setResetingCards(setTimeout(() => {
         if (
           selectedCardFirst
           && selectedCardSecond
           && selectedCardFirst.value !== selectedCardSecond.value
         ) {
-          this.setState({
-            selectedCardFirst: null,
-            selectedCardSecond: null
-          });
+          resetCards()
         }
-      }, resetCardsDelay)
-    });
+      }, resetCardsDelay));
   }
 
-  checkForMatch = ({ card }: { card: MatchCardProps }): MatchCardProps | null => {
-    const {
-      selectedCardFirst
-    } = this.state;
+  const checkForWin = ({ card }: { card: MatchCardProps }) => {
+    matchedCards.push(card.value);
 
+    (matchedCards.length === (cards.length / 2))
+      ? setTimeout(() => {
+        setSelectedCardFirst(null);
+        setSelectedCardSecond(null);
+        setGameOver(resetGame());
+      }, winDelay)
+      : resetCards();
+  }
+
+  const checkForMatch = ({ card }: { card: MatchCardProps }): MatchCardProps | null => {
     if (selectedCardFirst && selectedCardFirst.value === card.value) {
-      this.checkForWin({ card });
+      console.log('3')
+      checkForWin({ card });
+      return card;
     } else if (selectedCardFirst && selectedCardFirst.value !== card.value) {
-      this.autoResetCards();
+      autoResetCards();
       return card;
     }
-
     return null;
-  }
+  };
 
-  selectMatchCard = ({ card }: { card: MatchCardProps }) => {
-    const {
-      selectedCardFirst,
-      selectedCardSecond
-    } = this.state;
-
+  const selectMatchCard = ({ card }: { card: MatchCardProps }) => {
     if (selectedCardSecond === null
       || (selectedCardSecond && selectedCardSecond.id !== card.id)
     ) {
-      this.setState({
-        selectedCardFirst:
+      setSelectedCardFirst(
           (selectedCardFirst && selectedCardFirst.id === card.id)
             ? null
             : (selectedCardFirst !== null)
               ? (selectedCardSecond && selectedCardSecond.id !== card.id)
                 ? card
                 : selectedCardFirst
-              : card
-      });
+              : card);
     }
 
     if (selectedCardFirst && selectedCardFirst.id !== card.id) {
-      this.setState({
-        selectedCardSecond:
+      setSelectedCardSecond(
         (selectedCardSecond && selectedCardSecond.id === card.id)
         || (selectedCardFirst && selectedCardSecond)
           ? null
           : (selectedCardFirst && selectedCardFirst.id !== card.id)
-            ? this.checkForMatch({ card })
+            ? checkForMatch({ card })
             : (selectedCardFirst.value !== card.value)
               ? selectedCardSecond
               : null
-      });
+      );
     }
-  }
+  };
 
-  startGame = () => {
-    const {
-      cards,
-      difficulty
-    } = this.state;
+  useEffect(() => {
+    console.log('hit')
+  });
 
-    this.setState({
-      cards: difficulty === 0
-        ? cards.filter(card => card.id <= 8)
-        : difficulty === 1
-          ? cards.filter(card => card.id <= 16)
-          : cards.filter(card => card.id <= 24),
-      gameRunning: true
-    });
-  }
-
-  render() {
-    const {
-      cards,
-      difficulty,
-      selectedCardFirst,
-      selectedCardSecond,
-      matchedCards,
-      gameRunning,
-      gameOver
-    } = this.state;
-
-    return (gameRunning
-      ? (gameOver
-        ? (<Grid
-          container
-          direction='column'
-          justify='center'
-          alignItems='center'
-        >
-          <Typography variant='h1'>You Win!</Typography>
-        </Grid>)
-        : <div
-          className={`${difficulty === 0 ? 'easy' : difficulty === 1 ? 'medium' : 'hard'}`}
-        >
-          <Grid container spacing={3}>
-          {cards
-          .sort((a, b) => a.order - b.order)
-          .map(card =>
-            (<Grid
-              item
-              xs={6}
-              sm={difficulty === 0 ? 6 : difficulty === 1 ? 3 : 4}
-              md={difficulty < 2 ? 3 : 2}
-              key={card.id}
-            >
-              <MatchCard {... {
-                  ...card,
-                  classes: `${difficulty === 0 ? 'large' : difficulty === 1 ? 'medium' : 'small'}`,
-                  selected: selectedCardFirst === card || selectedCardSecond === card,
-                  matched: matchedCards.find(x => x === card.value) ? true : false
-                }}
-                onClick={() => this.selectMatchCard({ card })}
-              />
-            </Grid>))}
-          </Grid>
-        </div>)
-        : <Grid
-          container
-          direction='column'
-          justify='center'
-          alignItems='center'
-        >
-          <Button
-            color='primary'
-            variant='contained'
-            value='START'
-            onClick={this.startGame}
+  return (gameRunning
+    ? (gameOver
+      ? (<Grid
+        container
+        direction='column'
+        justify='center'
+        alignItems='center'
+      >
+        <Typography variant='h1'>You Win!</Typography>
+      </Grid>)
+      : <div
+        className={`${difficulty === 0 ? 'easy' : difficulty === 1 ? 'medium' : 'hard'}`}
+      >
+        <Grid container spacing={3}>
+        {cards
+        .sort((a, b) => a.order - b.order)
+        .map(card =>
+          (<Grid
+            item
+            xs={6}
+            sm={difficulty === 0 ? 6 : difficulty === 1 ? 3 : 4}
+            md={difficulty < 2 ? 3 : 2}
+            key={card.id}
           >
-            <Typography>START</Typography>
-          </Button>
-        </Grid>);
-  }
+            <MatchCard {... {
+                ...card,
+                classes: `${difficulty === 0 ? 'large' : difficulty === 1 ? 'medium' : 'small'}`,
+                selected: selectedCardFirst === card || selectedCardSecond === card,
+                matched: matchedCards.find(x => x === card.value) ? true : false
+              }}
+              onClick={() => selectMatchCard({ card })}
+            />
+          </Grid>))}
+        </Grid>
+      </div>)
+      : <Grid
+        container
+        direction='column'
+        justify='center'
+        alignItems='center'
+      >
+        <Button
+          color='primary'
+          variant='contained'
+          value='START'
+          onClick={startGame}
+        >
+          <Typography>START</Typography>
+        </Button>
+      </Grid>);
 }
 
 export default Game;
