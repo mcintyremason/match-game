@@ -13,7 +13,9 @@ type GameProps = {
 }
 
 const Game = (props: GameProps) => {
-  const { cards, setCards } = useContext(GameContext)
+  const { gameRunning, cards, setGameRunning, setCards } = useContext(
+    GameContext
+  )
   const { difficulty, resetCardsDelay, resetGameDelay, winDelay } = props
   const [
     selectedCardFirst,
@@ -24,7 +26,6 @@ const Game = (props: GameProps) => {
     setSelectedCardSecond,
   ] = useState<MatchCardProps | null>(null)
   const [matchedCards, setMatchedCards] = useState<Array<String>>([])
-  const [gameRunning, setGameRunning] = useState<boolean>(false)
   const [gameOver, setGameOver] = useState<boolean>(false)
   const [resetingCards, setResetingCards] = useState<NodeJS.Timeout | number>(0)
 
@@ -191,7 +192,13 @@ const Game = (props: GameProps) => {
       </div>
     )
   ) : (
-    <Grid container direction='column' justify='center' alignItems='center'>
+    <Grid
+      container
+      direction='column'
+      justify='center'
+      alignItems='center'
+      className='menu'
+    >
       <Button
         color='primary'
         variant='contained'

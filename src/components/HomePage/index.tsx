@@ -5,11 +5,13 @@ import { MatchCardProps } from '../MatchCard'
 import cards from '../../common/cards'
 
 type GameContextType = {
+  gameRunning: boolean
   cards: Array<MatchCardProps>
+  setGameRunning: React.Dispatch<React.SetStateAction<boolean>>
   setCards: React.Dispatch<React.SetStateAction<MatchCardProps[]>>
 }
 
-const difficulty = 'cat' ? 2 : 'dog' ? 1 : 0
+const difficulty = 'cat' ? 0 : 'dog' ? 1 : 2
 const RESET_CARDS_DELAY = 1500
 const RESET_GAME_DELAY = 3000
 const WIN_DELAY = 1000
@@ -22,11 +24,14 @@ const cardsFromDifficulty =
 
 export const GameContext = React.createContext<GameContextType>({
   cards: cardsFromDifficulty,
+  gameRunning: false,
+  setGameRunning: () => null,
   setCards: () => null,
 })
 
 const HomePage = () => {
   const [cards, setCards] = useState<MatchCardProps[]>(cardsFromDifficulty)
+  const [gameRunning, setGameRunning] = useState<boolean>(false)
 
   return (
     <Grid className='home-page-container'>
@@ -48,7 +53,9 @@ const HomePage = () => {
       >
         <GameContext.Provider
           value={{
+            gameRunning: gameRunning,
             cards: cards,
+            setGameRunning: setGameRunning,
             setCards: setCards,
           }}
         >

@@ -26,11 +26,11 @@ h6 {
   height: 100%;
 
   .title {
-    padding: 3% 0 0;
+    height: $header-height;
   }
 
   .game-container {
-    height: 100%;
+    height: calc(100% - #{$header-height});
     width: 100%;
     padding: 0 0 20%;
 
@@ -44,6 +44,10 @@ h6 {
 
     .hard {
       width: 80%;
+    }
+
+    .menu {
+      height: 100%;
     }
 
     .match-card-container {
@@ -66,7 +70,9 @@ h6 {
         }
 
         &.small {
-          height: 7.8125em;
+          // height: 7.8125em;
+          height: 155px;
+          width: 130px;
         }
 
         &.selected {
