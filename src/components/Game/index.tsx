@@ -78,6 +78,9 @@ const Game = (props: GameProps) => {
   }
 
   const checkForWin = () => {
+    console.log('checkForWin')
+    console.log('matchedCards')
+    console.log(matchedCards)
     matchedCards.length === cards.length / 2
       ? setTimeout(() => {
           setSelectedCardFirst(null)
