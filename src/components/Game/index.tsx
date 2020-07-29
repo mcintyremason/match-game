@@ -153,6 +153,10 @@ const Game = (props: GameProps) => {
     gameOver ? (
       <Grid container direction='column' justify='center' alignItems='center'>
         <Typography variant='h1'>You Win!</Typography>
+        <div class="pyro">
+          <div class="before"></div>
+          <div class="after"></div>
+        </div>
       </Grid>
     ) : (
       <div
