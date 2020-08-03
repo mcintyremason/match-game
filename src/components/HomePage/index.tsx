@@ -77,13 +77,16 @@ const HomePage = () => {
             setGameRunning: setGameRunning,
           }}
         >
-          <MainMenu />
-          <Game
-            difficulty={difficulty}
-            resetCardsDelay={RESET_CARDS_DELAY}
-            resetGameDelay={RESET_GAME_DELAY}
-            winDelay={WIN_DELAY}
-          />
+          {gameRunning ? (
+            <Game
+              difficulty={difficulty}
+              resetCardsDelay={RESET_CARDS_DELAY}
+              resetGameDelay={RESET_GAME_DELAY}
+              winDelay={WIN_DELAY}
+            />
+          ) : (
+            <MainMenu />
+          )}
         </GameContext.Provider>
       </Grid>
     </Grid>

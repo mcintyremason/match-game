@@ -29,10 +29,6 @@ const Game = (props: GameProps) => {
   const [gameOver, setGameOver] = useState<boolean>(false)
   const [resetingCards, setResetingCards] = useState<NodeJS.Timeout | number>(0)
 
-  const startGame = () => {
-    setGameRunning(true)
-  }
-
   const shuffleCards = () => {
     setCards(
       cards.map((card) => ({
@@ -78,9 +74,6 @@ const Game = (props: GameProps) => {
   }
 
   const checkForWin = () => {
-    console.log('checkForWin')
-    console.log('matchedCards')
-    console.log(matchedCards)
     matchedCards.length === cards.length / 2
       ? setTimeout(() => {
           setSelectedCardFirst(null)
@@ -115,6 +108,7 @@ const Game = (props: GameProps) => {
   const selectMatchCard = ({ card }: { card: MatchCardProps }) => {
     if (selectedCardFirst?.id === card.id) {
       // if first selected card is reselected
+      // clear timeout before the cards auto reset
       clearTimeout(resetingCards as number)
       setSelectedCardFirst(selectedCardSecond)
       setSelectedCardSecond(null)
@@ -134,7 +128,7 @@ const Game = (props: GameProps) => {
       selectedCardFirst.id !== card.id
     ) {
       // both cards are selected and a new first card is selected,
-      // before the cards auto reset
+      // clear timeout before the cards auto reset
       clearTimeout(resetingCards as number)
       setSelectedCardFirst(card)
       setSelectedCardSecond(null)
@@ -206,14 +200,14 @@ const Game = (props: GameProps) => {
       alignItems='center'
       className='menu'
     >
-      <Button
+      {/* <Button
         color='primary'
         variant='contained'
         value='PLAY'
         onClick={startGame}
       >
         <Typography>PLAY</Typography>
-      </Button>
+      </Button> */}
     </Grid>
   )
 }
