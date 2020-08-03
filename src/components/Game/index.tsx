@@ -143,68 +143,49 @@ const Game = (props: GameProps) => {
     checkForWin()
   }, [matchedCards])
 
-  return gameRunning ? (
-    gameOver ? (
-      <Grid container direction='column' justify='center' alignItems='center'>
-        <Typography variant='h1'>You Win!</Typography>
-      </Grid>
-    ) : (
-      <div
-        className={`${
-          difficulty === 0 ? 'easy' : difficulty === 1 ? 'medium' : 'hard'
-        }`}
-      >
-        <Grid container>
-          {cards
-            .sort((a, b) => a.order - b.order)
-            .map((card) => (
-              <Grid
-                item
-                xs={6}
-                sm={difficulty === 0 ? 6 : difficulty === 1 ? 3 : 4}
-                md={difficulty < 2 ? 3 : 2}
-                key={card.id}
-              >
-                <MatchCard
-                  {...{
-                    ...card,
-                    classes: `${
-                      difficulty === 0
-                        ? 'large'
-                        : difficulty === 1
-                        ? 'medium'
-                        : 'small'
-                    }`,
-                    selected:
-                      selectedCardFirst === card || selectedCardSecond === card,
-                    matched: matchedCards.find((x) => x === card.value)
-                      ? true
-                      : false,
-                  }}
-                  onClick={() => !isMatched(card) && selectMatchCard({ card })}
-                />
-              </Grid>
-            ))}
-        </Grid>
-      </div>
-    )
-  ) : (
-    <Grid
-      container
-      direction='column'
-      justify='center'
-      alignItems='center'
-      className='menu'
-    >
-      {/* <Button
-        color='primary'
-        variant='contained'
-        value='PLAY'
-        onClick={startGame}
-      >
-        <Typography>PLAY</Typography>
-      </Button> */}
+  return gameOver ? (
+    <Grid container direction='column' justify='center' alignItems='center'>
+      <Typography variant='h1'>You Win!</Typography>
     </Grid>
+  ) : (
+    <div
+      className={`${
+        difficulty === 0 ? 'easy' : difficulty === 1 ? 'medium' : 'hard'
+      }`}
+    >
+      <Grid container>
+        {cards
+          .sort((a, b) => a.order - b.order)
+          .map((card) => (
+            <Grid
+              item
+              xs={6}
+              sm={difficulty === 0 ? 6 : difficulty === 1 ? 3 : 4}
+              md={difficulty < 2 ? 3 : 2}
+              key={card.id}
+            >
+              <MatchCard
+                {...{
+                  ...card,
+                  classes: `${
+                    difficulty === 0
+                      ? 'large'
+                      : difficulty === 1
+                      ? 'medium'
+                      : 'small'
+                  }`,
+                  selected:
+                    selectedCardFirst === card || selectedCardSecond === card,
+                  matched: matchedCards.find((x) => x === card.value)
+                    ? true
+                    : false,
+                }}
+                onClick={() => !isMatched(card) && selectMatchCard({ card })}
+              />
+            </Grid>
+          ))}
+      </Grid>
+    </div>
   )
 }
 
