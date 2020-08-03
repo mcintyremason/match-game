@@ -1,37 +1,53 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Grid, Typography } from '@material-ui/core'
 import Game from '../Game'
 import { MatchCardProps } from '../MatchCard'
-import cards from '../../common/cards'
+import toyStoryCards from '../../common/toyStoryCards'
+import MainMenu from '../MainMenu'
 
 type GameContextType = {
-  gameRunning: boolean
   cards: Array<MatchCardProps>
-  setGameRunning: React.Dispatch<React.SetStateAction<boolean>>
+  difficulty: number
+  gameRunning: boolean
   setCards: React.Dispatch<React.SetStateAction<MatchCardProps[]>>
+  setDifficulty: React.Dispatch<React.SetStateAction<number>>
+  setGameRunning: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const difficulty = 'cat' ? 0 : 'dog' ? 1 : 2
 const RESET_CARDS_DELAY = 1500
 const RESET_GAME_DELAY = 3000
 const WIN_DELAY = 1000
-const cardsFromDifficulty =
-  difficulty === 0
-    ? cards.filter((card) => card.id <= 8)
-    : difficulty === 1
-    ? cards.filter((card) => card.id <= 16)
-    : cards.filter((card) => card.id <= 24)
 
 export const GameContext = React.createContext<GameContextType>({
-  cards: cardsFromDifficulty,
+  cards: [],
   gameRunning: false,
-  setGameRunning: () => null,
+  difficulty: 0,
   setCards: () => null,
+  setDifficulty: () => null,
+  setGameRunning: () => null,
 })
 
 const HomePage = () => {
-  const [cards, setCards] = useState<MatchCardProps[]>(cardsFromDifficulty)
+  const [cards, setCards] = useState<MatchCardProps[]>(toyStoryCards)
+  const [difficulty, setDifficulty] = useState<number>(0)
   const [gameRunning, setGameRunning] = useState<boolean>(false)
+
+  const cardsFromDifficulty = () => {
+    return difficulty === 0
+      ? setCards(toyStoryCards.filter((card) => card.id <= 8))
+      : difficulty === 1
+      ? setCards(toyStoryCards.filter((card) => card.id <= 16))
+      : setCards(toyStoryCards.filter((card) => card.id <= 24))
+  }
+
+  const selectGameDifficulty = (): any => {
+    setDifficulty(difficulty)
+    return cardsFromDifficulty()
+  }
+
+  useEffect(() => {
+    selectGameDifficulty()
+  }, [difficulty])
 
   return (
     <Grid className='home-page-container'>
@@ -53,18 +69,24 @@ const HomePage = () => {
       >
         <GameContext.Provider
           value={{
-            gameRunning: gameRunning,
             cards: cards,
-            setGameRunning: setGameRunning,
+            difficulty: difficulty,
+            gameRunning: gameRunning,
             setCards: setCards,
+            setDifficulty: setDifficulty,
+            setGameRunning: setGameRunning,
           }}
         >
-          <Game
-            difficulty={difficulty}
-            resetCardsDelay={RESET_CARDS_DELAY}
-            resetGameDelay={RESET_GAME_DELAY}
-            winDelay={WIN_DELAY}
-          />
+          {gameRunning ? (
+            <Game
+              difficulty={difficulty}
+              resetCardsDelay={RESET_CARDS_DELAY}
+              resetGameDelay={RESET_GAME_DELAY}
+              winDelay={WIN_DELAY}
+            />
+          ) : (
+            <MainMenu />
+          )}
         </GameContext.Provider>
       </Grid>
     </Grid>
