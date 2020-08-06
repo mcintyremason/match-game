@@ -1,9 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react'
 
-import { Button, Grid, Typography } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 
 import MatchCard, { MatchCardProps } from '../MatchCard'
 import { GameContext } from '../HomePage'
+import Win from '../Win'
 
 type GameProps = {
   difficulty: number
@@ -13,7 +14,7 @@ type GameProps = {
 }
 
 const Game = (props: GameProps) => {
-  const { gameRunning, cards, setGameRunning, setCards } = useContext(
+  const { cards, gameOver, setCards, setGameOver, setGameRunning } = useContext(
     GameContext
   )
   const { difficulty, resetCardsDelay, resetGameDelay, winDelay } = props
@@ -26,7 +27,6 @@ const Game = (props: GameProps) => {
     setSelectedCardSecond,
   ] = useState<MatchCardProps | null>(null)
   const [matchedCards, setMatchedCards] = useState<Array<String>>([])
-  const [gameOver, setGameOver] = useState<boolean>(false)
   const [resetingCards, setResetingCards] = useState<NodeJS.Timeout | number>(0)
 
   const shuffleCards = () => {
@@ -144,9 +144,7 @@ const Game = (props: GameProps) => {
   }, [matchedCards])
 
   return gameOver ? (
-    <Grid container direction='column' justify='center' alignItems='center'>
-      <Typography variant='h1'>You Win!</Typography>
-    </Grid>
+    <Win />
   ) : (
     <div
       className={`${
