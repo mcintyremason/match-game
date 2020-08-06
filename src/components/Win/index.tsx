@@ -1,22 +1,11 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React from 'react'
 
-import { Button, Grid, Typography } from '@material-ui/core'
-
-const Fireworks = () => (
-  <div className='pyro'>
-    <div className='before'></div>
-    <div className='after'></div>
-  </div>
-)
+import { Grid, Typography } from '@material-ui/core'
 
 const Win = (props: any) => {
   return (
     <Grid container direction='column' justify='center' alignItems='center'>
       <Typography variant='h1'>You Win!</Typography>
-      <div className='pyro'>
-        <div className='before'></div>
-        <div className='after'></div>
-      </div>
     </Grid>
   )
 }

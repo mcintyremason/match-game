@@ -4,26 +4,31 @@ import Game from '../Game'
 import { MatchCardProps } from '../MatchCard'
 import toyStoryCards from '../../common/toyStoryCards'
 import MainMenu from '../MainMenu'
+import Fireworks from '../Fireworks'
 
 type GameContextType = {
   cards: Array<MatchCardProps>
   difficulty: number
+  gameOver: boolean
   gameRunning: boolean
   setCards: React.Dispatch<React.SetStateAction<MatchCardProps[]>>
   setDifficulty: React.Dispatch<React.SetStateAction<number>>
+  setGameOver: React.Dispatch<React.SetStateAction<boolean>>
   setGameRunning: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const RESET_CARDS_DELAY = 1500
-const RESET_GAME_DELAY = 3000
+const RESET_GAME_DELAY = 8000
 const WIN_DELAY = 1000
 
 export const GameContext = React.createContext<GameContextType>({
   cards: [],
-  gameRunning: false,
   difficulty: 0,
+  gameOver: false,
+  gameRunning: false,
   setCards: () => null,
   setDifficulty: () => null,
+  setGameOver: () => null,
   setGameRunning: () => null,
 })
 
@@ -31,6 +36,7 @@ const HomePage = () => {
   const [cards, setCards] = useState<MatchCardProps[]>(toyStoryCards)
   const [difficulty, setDifficulty] = useState<number>(0)
   const [gameRunning, setGameRunning] = useState<boolean>(false)
+  const [gameOver, setGameOver] = useState<boolean>(false)
 
   const cardsFromDifficulty = () => {
     return difficulty === 0
@@ -51,6 +57,7 @@ const HomePage = () => {
 
   return (
     <Grid className='home-page-container'>
+      {gameOver && <Fireworks />}
       <Grid
         container
         direction='column'
@@ -71,9 +78,11 @@ const HomePage = () => {
           value={{
             cards: cards,
             difficulty: difficulty,
+            gameOver: gameOver,
             gameRunning: gameRunning,
             setCards: setCards,
             setDifficulty: setDifficulty,
+            setGameOver: setGameOver,
             setGameRunning: setGameRunning,
           }}
         >
