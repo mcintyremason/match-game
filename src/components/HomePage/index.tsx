@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, Typography } from '@material-ui/core'
+import {
+  Grid,
+  Typography,
+  Switch,
+  FormControl,
+  FormGroup,
+  FormControlLabel,
+} from '@material-ui/core'
 import Game from '../Game'
 import { MatchCardProps } from '../MatchCard'
 import toyStoryCards from '../../common/toyStoryCards'
@@ -37,6 +44,7 @@ const HomePage = () => {
   const [difficulty, setDifficulty] = useState<number>(0)
   const [gameRunning, setGameRunning] = useState<boolean>(false)
   const [gameOver, setGameOver] = useState<boolean>(false)
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false)
 
   const cardsFromDifficulty = () => {
     return difficulty === 0
@@ -51,21 +59,35 @@ const HomePage = () => {
     return cardsFromDifficulty()
   }
 
+  const toggleIsDarkMode = () => setIsDarkMode(!isDarkMode)
+
   useEffect(() => {
     selectGameDifficulty()
   }, [difficulty])
 
   return (
-    <Grid className='home-page-container'>
+    <Grid className={`home-page-container ${isDarkMode ? 'dark' : 'light'}`}>
       {gameOver && <Fireworks />}
-      <Grid
-        container
-        direction='column'
-        justify='center'
-        alignItems='center'
-        className='title'
-      >
+      <Grid container justify='center' alignItems='center' className='title'>
         <Typography variant='h2'>Matching Game</Typography>
+      </Grid>
+      <Grid container justify='center' alignItems='center'>
+        <FormControl component='fieldset'>
+          <FormGroup aria-label='position' row>
+            <FormControlLabel
+              value='top'
+              control={
+                <Switch
+                  checked={isDarkMode}
+                  onChange={toggleIsDarkMode}
+                  name='darkModeToggle'
+                />
+              }
+              label='Dark Mode'
+              labelPlacement='start'
+            />
+          </FormGroup>
+        </FormControl>
       </Grid>
       <Grid
         container
