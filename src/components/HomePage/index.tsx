@@ -81,7 +81,9 @@ const HomePage = () => {
       {gameOver && <Fireworks />}
       <Grid container justify='center' alignItems='center' className='title'>
         <Typography variant='h2'>Matching Game</Typography>
-        <Button onClick={handleDrawerOpen}>Navigation</Button>
+        <Button onClick={open ? handleDrawerClose : handleDrawerOpen}>
+          Navigation
+        </Button>
       </Grid>
       <Grid container justify='center' alignItems='center'>
         <FormControl component='fieldset'>
