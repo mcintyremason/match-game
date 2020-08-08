@@ -73,16 +73,17 @@ h6 {
 
         &.large {
           height: 12.5em;
+          width: 12.5em;
         }
 
         &.medium {
-          height: 7.8125em;
+          height: 10em;
+          width: 10em;
         }
 
         &.small {
-          // height: 7.8125em;
-          height: 155px;
-          width: 130px;
+          height: 9em;
+          width: 9em;
         }
 
         &.selected {

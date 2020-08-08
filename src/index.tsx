@@ -1,12 +1,17 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-
-import './styles/scss/app.scss'
-
-import HomePage from './components/HomePage/index'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 
+import HomePage from './components/HomePage/index'
+import './styles/scss/app.scss'
+
 const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#58b2fd',
+      contrastText: '#ffffff',
+    },
+  },
   props: {
     MuiTypography: {
       variantMapping: {
@@ -28,7 +33,7 @@ const theme = createMuiTheme({
 export default class App extends React.Component {
   render() {
     return (
-      <ThemeProvider {...{ theme }}>
+      <ThemeProvider theme={theme}>
         <HomePage />
       </ThemeProvider>
     )
