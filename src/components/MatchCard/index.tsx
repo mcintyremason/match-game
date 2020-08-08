@@ -21,9 +21,7 @@ const MatchCard = (props: MatchCardProps) => {
         className={`match-card ${props.classes} ${
           props.selected ? 'selected' : ''
         } ${props.matched ? 'matched' : ''}`}
-        {...{
-          onClick: props.onClick,
-        }}
+        onClick={props.onClick}
       >
         {props.selected || props.matched ? (
           <CardMedia className='back' image={props.imgSrc} />

@@ -6,12 +6,14 @@ import {
   FormControl,
   FormGroup,
   FormControlLabel,
+  Button,
 } from '@material-ui/core'
 import Game from '../Game'
 import { MatchCardProps } from '../MatchCard'
-import ToyStoryDeck from '../../decks/ToyStoryDeck'
 import MainMenu from '../DifficultyMenu'
 import Fireworks from '../Fireworks'
+import ToyStoryDeck from '../../decks/ToyStoryDeck'
+import SideNavigation from '../SideNavigation'
 
 type GameContextType = {
   cards: Array<MatchCardProps>
@@ -45,6 +47,15 @@ const HomePage = () => {
   const [gameRunning, setGameRunning] = useState<boolean>(false)
   const [gameOver, setGameOver] = useState<boolean>(false)
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false)
+  const [open, setOpen] = useState(false)
+
+  const handleDrawerOpen = () => {
+    setOpen(true)
+  }
+
+  const handleDrawerClose = () => {
+    setOpen(false)
+  }
 
   const cardsFromDifficulty = () => {
     return difficulty === 0
@@ -70,6 +81,7 @@ const HomePage = () => {
       {gameOver && <Fireworks />}
       <Grid container justify='center' alignItems='center' className='title'>
         <Typography variant='h2'>Matching Game</Typography>
+        <Button onClick={handleDrawerOpen}>Navigation</Button>
       </Grid>
       <Grid container justify='center' alignItems='center'>
         <FormControl component='fieldset'>
@@ -120,6 +132,7 @@ const HomePage = () => {
           )}
         </GameContext.Provider>
       </Grid>
+      <SideNavigation open={open} handleDrawerClose={handleDrawerClose} />
     </Grid>
   )
 }
