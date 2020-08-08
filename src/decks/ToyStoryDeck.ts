@@ -13,7 +13,7 @@ import rex from '../assets/images/rex.jpg'
 import bullseye from '../assets/images/bullseye.jpg'
 import hamm from '../assets/images/hamm.jpg'
 
-const toyStoryCards: Array<MatchCardProps> = [
+const ToyStoryDeck: Array<MatchCardProps> = [
   {
     id: 1,
     value: 'Woody',
@@ -184,4 +184,4 @@ const toyStoryCards: Array<MatchCardProps> = [
   },
 ]
 
-export default toyStoryCards
+export default ToyStoryDeck

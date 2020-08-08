@@ -9,8 +9,8 @@ import {
 } from '@material-ui/core'
 import Game from '../Game'
 import { MatchCardProps } from '../MatchCard'
-import toyStoryCards from '../../common/toyStoryCards'
-import MainMenu from '../MainMenu'
+import ToyStoryDeck from '../../decks/ToyStoryDeck'
+import MainMenu from '../DifficultyMenu'
 import Fireworks from '../Fireworks'
 
 type GameContextType = {
@@ -40,7 +40,7 @@ export const GameContext = React.createContext<GameContextType>({
 })
 
 const HomePage = () => {
-  const [cards, setCards] = useState<MatchCardProps[]>(toyStoryCards)
+  const [cards, setCards] = useState<MatchCardProps[]>(ToyStoryDeck)
   const [difficulty, setDifficulty] = useState<number>(0)
   const [gameRunning, setGameRunning] = useState<boolean>(false)
   const [gameOver, setGameOver] = useState<boolean>(false)
@@ -48,10 +48,10 @@ const HomePage = () => {
 
   const cardsFromDifficulty = () => {
     return difficulty === 0
-      ? setCards(toyStoryCards.filter((card) => card.id <= 8))
+      ? setCards(ToyStoryDeck.filter((card) => card.id <= 8))
       : difficulty === 1
-      ? setCards(toyStoryCards.filter((card) => card.id <= 16))
-      : setCards(toyStoryCards.filter((card) => card.id <= 24))
+      ? setCards(ToyStoryDeck.filter((card) => card.id <= 16))
+      : setCards(ToyStoryDeck.filter((card) => card.id <= 24))
   }
 
   const selectGameDifficulty = (): any => {

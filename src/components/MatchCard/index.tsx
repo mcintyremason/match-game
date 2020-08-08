@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Card, CardMedia, Container } from '@material-ui/core'
+import { Card, CardMedia, Container, Grid } from '@material-ui/core'
 
 import cardBackground from '../../assets/images/card-background.jpg'
 
@@ -16,7 +16,7 @@ export type MatchCardProps = {
 
 const MatchCard = (props: MatchCardProps) => {
   return (
-    <Container className='match-card-container'>
+    <Grid container justify='center' className='match-card-container'>
       <Card
         className={`match-card ${props.classes} ${
           props.selected ? 'selected' : ''
@@ -31,7 +31,7 @@ const MatchCard = (props: MatchCardProps) => {
           <CardMedia className='front' image={cardBackground} />
         )}
       </Card>
-    </Container>
+    </Grid>
   )
 }
 
