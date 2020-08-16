@@ -43,6 +43,13 @@ h6 {
     height: calc(100% - #{$header-height + $dark-mode-toggle-height});
     width: 100%;
     padding: 0 0 20%;
+    overflow-y: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      width: 0px; /* Remove scrollbar */
+      background: transparent; /* Optional: just make scrollbar invisible */
+    }
 
     .easy {
       width: 75%;

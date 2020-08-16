@@ -30,11 +30,13 @@ const Game = (props: GameProps) => {
   const [resetingCards, setResetingCards] = useState<NodeJS.Timeout | number>(0)
 
   const shuffleCards = () => {
+    const multiplier = difficulty === 0 ? 4 : difficulty === 1 ? 8 : 12
+
     setCards(
       cards.map((card) => ({
         ...card,
         matched: false,
-        order: Math.floor(Math.random() * 4),
+        order: Math.floor(Math.random() * multiplier),
       }))
     )
   }
