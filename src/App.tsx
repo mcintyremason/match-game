@@ -34,6 +34,7 @@ const App = () => (
   <ThemeProvider theme={theme}>
     <Switch>
       <Route path="/" component={HomePage} exact />
+      <Route path="/card-matcher" component={HomePage} exact />
       <Redirect to="/" />
     </Switch>
   </ThemeProvider>
