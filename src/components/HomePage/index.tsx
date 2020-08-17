@@ -18,6 +18,7 @@ type GameContextType = {
   difficulty: number
   gameOver: boolean
   gameRunning: boolean
+  isDarkMode: boolean
   setCards: React.Dispatch<React.SetStateAction<MatchCardProps[]>>
   setDifficulty: React.Dispatch<React.SetStateAction<number>>
   setGameOver: React.Dispatch<React.SetStateAction<boolean>>
@@ -33,6 +34,7 @@ export const GameContext = React.createContext<GameContextType>({
   difficulty: 0,
   gameOver: false,
   gameRunning: false,
+  isDarkMode: false,
   setCards: () => null,
   setDifficulty: () => null,
   setGameOver: () => null,
@@ -102,6 +104,7 @@ const HomePage = () => {
             difficulty: difficulty,
             gameOver: gameOver,
             gameRunning: gameRunning,
+            isDarkMode: isDarkMode,
             setCards: setCards,
             setDifficulty: setDifficulty,
             setGameOver: setGameOver,
