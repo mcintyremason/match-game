@@ -4,6 +4,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 
 import HomePage from './components/HomePage/index'
 import './styles/scss/app.scss'
+import './styles/css/global.css'
 
 const theme = createMuiTheme({
   palette: {
