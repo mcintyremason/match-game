@@ -1,5 +1,6 @@
 import * as React from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import HomePage from "./components/HomePage/index";
 import "./css/global.css";
@@ -32,10 +33,11 @@ const theme = createMuiTheme({
 
 const App = () => (
   <ThemeProvider theme={theme}>
-    <HomePage />
+    <Switch>
+      <Route path="/" component={HomePage} exact />
+      <Redirect to="/" />
+    </Switch>
   </ThemeProvider>
 );
 
 export default App;
-
-// ReactDOM.render(<App />, document.getElementById('app'))
