@@ -3,6 +3,7 @@ import { Card, CardMedia, Grid } from '@material-ui/core'
 
 import cardBackground from '../../assets/images/card-background.jpg'
 import { GameContext } from '../HomePage'
+import './index.css'
 
 export type MatchCardProps = {
   id: number

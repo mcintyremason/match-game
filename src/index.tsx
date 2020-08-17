@@ -3,7 +3,8 @@ import * as ReactDOM from 'react-dom'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 
 import HomePage from './components/HomePage/index'
-import './styles/scss/app.scss'
+import './styles/css/global.css'
+import './styles/css/fireworks.css'
 
 const theme = createMuiTheme({
   palette: {

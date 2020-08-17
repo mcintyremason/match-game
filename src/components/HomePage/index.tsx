@@ -12,6 +12,7 @@ import { MatchCardProps } from '../MatchCard'
 import ToyStoryDeck from '../../decks/ToyStoryDeck'
 import MainMenu from '../DifficultyMenu'
 import Fireworks from '../Fireworks'
+import './index.css'
 
 type GameContextType = {
   cards: Array<MatchCardProps>
