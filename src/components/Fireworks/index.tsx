@@ -1,10 +1,11 @@
-import React from 'react'
+import React from "react";
+import "./index.css";
 
 const Fireworks = () => (
-  <div className='pyro'>
-    <div className='before'></div>
-    <div className='after'></div>
+  <div className="pyro">
+    <div className="before"></div>
+    <div className="after"></div>
   </div>
-)
+);
 
-export default Fireworks
+export default Fireworks;

@@ -4,7 +4,6 @@ import { Route, Switch, Redirect } from "react-router-dom";
 
 import HomePage from "./components/HomePage/index";
 import "./css/global.css";
-import "./css/fireworks.css";
 
 const theme = createMuiTheme({
   palette: {
