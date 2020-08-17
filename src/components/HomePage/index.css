@@ -15,7 +15,7 @@
   height: var(--header-height);
 }
 
-.game-container {
+.home-page-container .game-container {
   height: calc(100% - (var(--header-height) + var(--dark-mode-toggle-height)));
   width: 100%;
   padding: 0 0 20%;
