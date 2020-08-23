@@ -1,11 +1,15 @@
 import * as React from "react";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import {
+  createMuiTheme,
+  ThemeProvider,
+  responsiveFontSizes,
+} from "@material-ui/core/styles";
 import { Route, Switch, Redirect } from "react-router-dom";
 
 import HomePage from "./components/HomePage/index";
 import "./css/global.css";
 
-const theme = createMuiTheme({
+let theme = createMuiTheme({
   palette: {
     primary: {
       main: "#58b2fd",
@@ -29,6 +33,8 @@ const theme = createMuiTheme({
     },
   },
 });
+
+theme = responsiveFontSizes(theme);
 
 const App = () => (
   <ThemeProvider theme={theme}>
