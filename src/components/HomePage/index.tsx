@@ -72,7 +72,7 @@ const HomePage = () => {
     <Grid className={`home-page-container ${isDarkMode ? "dark" : "light"}`}>
       {gameOver && <Fireworks />}
       <Grid container justify="center" alignItems="center" className="title">
-        <Typography variant="h2">Matching Game</Typography>
+        <Typography variant="h2">Card Matcher</Typography>
       </Grid>
       <Grid container justify="center" alignItems="center">
         <FormControl component="fieldset">
