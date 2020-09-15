@@ -7,6 +7,7 @@ import {
   FormGroup,
   FormControlLabel,
 } from "@material-ui/core";
+import moment, { Moment } from "moment";
 import Game from "../Game";
 import { MatchCardProps } from "../MatchCard";
 import ToyStoryDeck from "../../decks/ToyStoryDeck";
@@ -20,10 +21,13 @@ type GameContextType = {
   gameOver: boolean;
   gameRunning: boolean;
   isDarkMode: boolean;
+  gameTime: Moment;
+  gameTimer: any;
   setCards: React.Dispatch<React.SetStateAction<MatchCardProps[]>>;
   setDifficulty: React.Dispatch<React.SetStateAction<number>>;
   setGameOver: React.Dispatch<React.SetStateAction<boolean>>;
   setGameRunning: React.Dispatch<React.SetStateAction<boolean>>;
+  setGameTime: React.Dispatch<React.SetStateAction<Moment>>;
 };
 
 const RESET_CARDS_DELAY = 1500;
@@ -35,11 +39,14 @@ export const GameContext = React.createContext<GameContextType>({
   difficulty: 0,
   gameOver: false,
   gameRunning: false,
-  isDarkMode: false,
+  isDarkMode: true,
+  gameTime: moment(),
+  gameTimer: null,
   setCards: () => null,
   setDifficulty: () => null,
   setGameOver: () => null,
   setGameRunning: () => null,
+  setGameTime: () => null,
 });
 
 const HomePage = () => {
@@ -47,7 +54,10 @@ const HomePage = () => {
   const [difficulty, setDifficulty] = useState<number>(0);
   const [gameRunning, setGameRunning] = useState<boolean>(false);
   const [gameOver, setGameOver] = useState<boolean>(false);
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
+  const [gameStartTime, setGameStartTime] = useState<Moment>(moment());
+  const [gameTime, setGameTime] = useState<Moment>(moment());
+  const [gameTimer, setGameTimer] = useState<any>(null);
 
   const cardsFromDifficulty = () => {
     return difficulty === 0
@@ -64,9 +74,28 @@ const HomePage = () => {
 
   const toggleIsDarkMode = () => setIsDarkMode(!isDarkMode);
 
+  const startGameTime = () => {
+    setGameTimer(
+      setInterval(() => {
+        const currentTime = moment();
+        setGameTime(moment(currentTime.diff(gameStartTime)));
+      }, 10)
+    );
+  };
+
   useEffect(() => {
     selectGameDifficulty();
   }, [difficulty]);
+
+  useEffect(() => {
+    clearInterval(gameTimer);
+    startGameTime();
+  }, [gameRunning]);
+
+  useEffect(() => {
+    // setGameStartTime(moment());
+    clearInterval(gameTimer);
+  }, [gameOver]);
 
   return (
     <Grid className={`home-page-container ${isDarkMode ? "dark" : "light"}`}>
@@ -92,6 +121,12 @@ const HomePage = () => {
           </FormGroup>
         </FormControl>
       </Grid>
+      {gameRunning && (
+        <Grid container justify="center" alignItems="center" className="title">
+          {/* <Typography variant="h3">{`${gameTime.minutes()}:${gameTime.seconds()}:${gameTime.milliseconds()}`}</Typography> */}
+          <Typography variant="h3">{gameTime.format("mm:ss.SS")}</Typography>
+        </Grid>
+      )}
       <Grid
         container
         direction="row"
@@ -106,10 +141,13 @@ const HomePage = () => {
             gameOver: gameOver,
             gameRunning: gameRunning,
             isDarkMode: isDarkMode,
+            gameTime: gameTime,
+            gameTimer: gameTimer,
             setCards: setCards,
             setDifficulty: setDifficulty,
             setGameOver: setGameOver,
             setGameRunning: setGameRunning,
+            setGameTime: setGameTime,
           }}
         >
           {gameRunning ? (
